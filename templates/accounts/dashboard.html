@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ======= Banner content ======= -->
+<section id="other-banner-content" class="d-flex align-items-center justify-content-center m-0 py-3">
+    <div class="container">
+        <div class="content">
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-8">
+                    <h1><small>DASHBOARD</small></h1>
+                    <p class="py-1 text-light">Manage Your Business / Company Account</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> <!-- ======== Banner content end ======== -->
+
+<section id="dashboard" class="py-4">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-12">
+            <!-- Alerts -->
+          {% include 'partials/_alerts.html' %}
+          <h2 class="text-dark">Profile Details</h2>
+          <p class="text-dark">Here are some of your details</p>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Email Address:</td>
+                <td>
+                  <li>{{ user.email }}</li>
+                </td>
+              </tr>
+              <tr>
+                <td>User name:</td>
+                <td>
+                    <li>{{ user.username }}</li>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="justify-content-center align-item-center text-center py-2 bg-secondary"><a class="text-light nav-link" href="{% url 'add_listing' %}"> Click Here to Add your business</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- ======= Banner content ======= -->
+
+<section id="other-banner-content" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ listing.photo_main.url }}'); background-repeat: no-repeat;
+background-size:cover;" class="d-flex align-items-center justify-content-center m-0 py-3">
+  <div class="container">
+    <div class="content">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-xl-8 col-lg-8">
+          <h2 class="text-light">{{ listing.name }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- ======== Banner content end ======== -->
+
+<section class="container pb-5 pt-2">
+  <section class="d-flex pt-5 row">
+    <section class="col-md-6 col-12">
+      <div class="cover_photo col-12 mb-4"><img class="rounded" src="{{ listing.photo_main.url }}" width="100%"></div>
+      <div class="row mb-5 thumbs">
+      {% if listing.photo_1 %}
+        <div class="col-3">
+          <a href="{{ listing.photo_1.url }}" data-lightbox="home-images">
+            <img src="{{ listing.photo_1.url }}" alt="" class="img-fluid">
+          </a>
+        </div>
+        {% endif%}
+        {% if listing.photo_2 %}
+        <div class="col-3">
+          <a href="{{ listing.photo_2.url }}" data-lightbox="home-images">
+            <img src="{{ listing.photo_2.url }}" alt="" class="img-fluid">
+          </a>
+        </div>
+        {% endif %}
+        {% if listing.photo_3 %}
+        <div class="col-3">
+          <a href="{{ listing.photo_3.url }}" data-lightbox="home-images">
+            <img src="{{ listing.photo_3.url }}" alt="" class="img-fluid">
+          </a>
+        </div>
+        {% endif %}
+        {% if listing.photo_4 %}
+        <div class="col-3">
+          <a href="{{ listing.photo_4.url }}" data-lightbox="home-images">
+            <img src="{{ listing.photo_4.url }}" alt="" class="img-fluid">
+          </a>
+        </div>
+        {% endif %}
+
+      </div>
+    </section>
+    <section class="description col-md-6 col-12 ">
+      <div class="col-12 mt-md-0 mt-4 bg-light">
+        <h2>Description:</h2>
+        <p id="trunc">
+          {%autoescape off%}
+          {{ listing.description }}
+          {%endautoescape%}
+        </p>
+      </div>
+      <div class="col-12 mt-4">
+        <h5>Contact informations:</h5>
+        {% if listing.email %}
+        <div class="col-12 d-flex align-items-center justify-content-between mt-2 p-2">
+          <label>Email:</label>
+          <label><a href="mailto:{{ listing.email}}" class="text-dark">{{ listing.email}}</a></label>
+        </div>
+        <hr>
+        {% endif %}
+        {% if listing.location %}
+        <div class="col-12 d-flex align-items-center justify-content-between mt-2 p-2">
+          <label>Address:</label>
+          <label>{{ listing.location }}</label>
+        </div>
+        <hr>
+        {% endif%}
+        {% if listing.phone_number %}
+        <div class="col-12 d-flex align-items-center justify-content-between mt-2 p-2">
+          <label>Phone number:</label>
+          <label>
+            <a href="tel:{{ listing.phone_number }}" class="text-dark">{{ listing.phone_number }}</a>
+          </label>
+        </div>
+        <hr>
+        {% endif %}
+        <div class="col-12 d-flex align-items-center justify-content-between mt-2 p-2">
+          <label>Business Hours:</label>
+          <label>{{ listing.closing_time }} - {{ listing.opening_time }}</label>
+        </div>
+        <hr>
+        <div class="col-12 d-flex justify-content-between align-items-center p-2">
+          <i class="p-0 text-dark">Contacts links:</i>
+          <span class="p-0 text-dark">
+            <div class="social-links mt-3">
+              {% if listing.facebook %}
+              <a href="http://{{ listing.facebook }}" class="facebook"><img src="{% static 'svg/facebook.svg' %}"></a>
+              {% endif %}
+              {% if listing.instagram %}
+              <a href="http://{{ listing.instagram }}" class="instagram"><img src="{% static 'svg/instagram.svg' %}"></a>
+              {% endif %}
+              {% if listing.website %}
+              <a href="http://{{ listing.website }}" class="website"><img src="{% static 'svg/www.svg' %}"></a>
+              {% endif %}
+          </span>
+        </div>
+      </div>
+    </section>
+  </section>
+</section>
+
+
+
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- ======= Banner content ======= -->
+<section id="other-banner-content" class="d-flex align-items-center justify-content-center m-0 py-3">
+    <div class="container">
+        <div class="content">
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-8">
+                    <h1>About</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> <!-- ======== Banner content end ======== -->
+
+<!-- ====== main content-->
+<div class="mt-5 pt-5 container">
+
+
+    <!-- ===== Our Mission ===== -->
+    <section class="col-md-12 d-flex justify-content-center row text-dark align-items-center pb-5">
+<!--         <div class="col-md-6">
+            <img src="{% static 'img/about_us.png' %}" alt="" class="img-fluid col-12">
+        </div> -->
+        <div class="content col-md-12 pt-5 about-bd-text">
+            <h2 class="text-center font-weight-bold py-2">BonnyDirect </h2>
+            <p class="text-lead">BonnyDirect is centered on providing up-to-date information (location, contact details etc.) about businesses, services and places within Bonny Island and where to
+                find them.</p>
+                <p>Its a simple platform that seeks to showcase and connect businesses,
+                schools, organizations, and other places in Grand Bonny Kingdom.</p>
+        </div>
+    </section>
+    <!-- ===== End of Our Mission ===== -->
+
+    <!-- ===== Our Acomplishments ===== -->
+    <!-- <section class="container counts d-flex  row text-dark  text-center col-md-12 p-5">
+        <div class="list_adv col-md-4">
+            <h2>3782</h2>
+            <p>LIstings Available</p>
+        </div>
+        <div class="list_adv col-md-4">
+            <h2>3782</h2>
+            <p>Added this Week</p>
+        </div>
+        <div class="list_adv col-md-4">
+            <h2>3782</h2>
+            <p>Happy CLients</p>
+        </div>
+    </section> -->
+
+    <!-- ===== End of  Our Acomplishments ===== -->
+    <hr>
+
+
+    <!-- ===== Our Teams ===== -->
+<!--     <section class="our_team text-center text-dark">
+        <div class="container our-team">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="font-weight-bold">Our Team</h2>
+                </div> 
+            </div> end of row 
+            <div class="row">
+
+                 <div class="col-12 px-5 about-our-team py-4">
+=======
+             <div class="col-12 px-5 about-our-team py-4">
+
+                    <p class="text-dark col-lg-px-5">A group of individuals who successfully completed their training at
+                        Cedars Productivity Centre brought to light their idea (BoniDirect)
+                        of how the masses could get access to first-hand information about
+                        businesses/organizations in Grand Bonny Kingdom.</p>
+                </div> -->
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="card-deck">
+                        {% if our_team %}
+                        {% for Team_Mate in our_team %}
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top img-fluid" src="{{ Team_Mate.photo.url }}" alt="Card image cap">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ Team_Mate.name }}</h5>
+                                <p class="card-text">{{ Team_Mate.position }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+<!--                             <p class="text-dark">Not Available at the moment</p> -->
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+    <!-- ===== End of  Our Teams ===== -->
+</div>
+<<!-- Testimonials -->
+    <div class="slider">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+<!--                     <h2>Customers’ Testimonials </h2> -->
+<!--                     <p class="text-center col-lg-7 mx-auto testimony-p">Testimonies of individuals who use BoniDirect to get access
+                        to first-hand information.</p> -->
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+
+                    <!-- Card Slider -->
+                    <div class="slider-container">
+                        <div class="swiper-container card-slider">
+                            <div class="swiper-wrapper">
+
+                                <!-- Slide -->
+                                <div class="swiper-slide">
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            {% if testimonies %}
+                                            {% for Testimony in testimonies %}
+                                            <div
+                                                class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                                                <div class="card" style="width: 30rem;">
+                                                    <img class="card-image" src="{{ Testimony.testimonial_photo.url }}"
+                                                        alt="alternative">
+                                                    <div class="card-body">
+                                                        <div class="testimonial-text px-5">{{ Testimony.body }}</div>
+                                                        <div class="testimonial-author">{{ Testimony.testimonial_name }}
+                                                            - {{ Testimony.position }} </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            {% else %}
+<!--                                             <div class="col-12 text-dark">
+                                                No Testimony Available
+                                            </div> -->
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+                                </div> <!-- end of swiper-slide -->
+                                <!-- end of slide -->
+
+                            </div> <!-- end of swiper-wrapper -->
+
+                        </div> <!-- end of swiper-container -->
+                    </div> <!-- end of sliedr-container -->
+                    <!-- end of card slider -->
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div>
+    <!-- end of slider -->
+    <!-- end of testimonials -->
+    {% endblock %}

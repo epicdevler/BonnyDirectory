@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <!-- bootstrap -->
+  <link href="{% static 'css/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- css -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <!-- light box -->
+  <link href="{% static 'css/lightbox.min.css' %}" rel="stylesheet">
+  <!-- all -->
+  <link href="{% static 'css/all.css' %}" rel="stylesheet">
+  <!-- fontawesome -->
+  <link href="{% static 'css/fontawesome-all.css' %}" rel="stylesheet">
+  <link href="{% static 'css/regForm.css' %}" rel="stylesheet">
+  <!-- Favicon  -->
+  <link rel="icon" href="{% static 'img/favicon/favicon_16x16.png' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+
+  <title>Bonnydirect</title>
+</head>
+<body>
+
+  <!--navbar-->
+  {% include 'partials/_navbar.html' %}
+
+
+  {% block content %} {% endblock %}
+
+  <!-- footer -->
+  {% include 'partials/_footer.html' %}
+
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/lightbox.min.js' %}"></script>
+  <scripts src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

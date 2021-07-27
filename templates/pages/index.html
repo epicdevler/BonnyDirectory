@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ======= Intro Section ======= -->
+<div class="header">
+  <div class="header-content display-table">
+    <div class="table-cell">
+      <div class="container">
+        <h1 class="header-title text-light text-uppercase pb-3">Explore Bonny Island</h1>
+        <h3 class="text-light">Find. Connect. Share</h3>
+        <div class="search mt-3 px-0 py-1 mx-0">
+          <form id="form" action="{% url 'search' %}" method="GET">
+            {% csrf_token %}
+            <div class="row d-flex justify-content-center container p-0 m-0 px-1">
+              <input id="keywords" type="text" name="keywords"
+                class="form-control col-lg-3 col-md-12 col-sm-12 mx-2   py-4 my-2 border border-5"
+                placeholder=" Keyword">
+              <input id="locations" type="text" name="location"
+                class="form-control col-lg-3 col-md-12 mx-2   py-4 col-sm-12 my-2 border border-5"
+                placeholder=" Location">
+              <input id="categories" type="text" name="category" value="{{ query }}" list="category"
+                class="form-control col-lg-3 col-md-12 col-sm-12 mx-2  py-4 my-2 border border-5" placeholder=" Category (All)">
+              <datalist id="category">
+                {% for categories in categories %}
+                <option>{{ categories.name }}</option>
+                {% endfor %}
+              </datalist>
+              <button type="submit"
+                class="btn search-bt col-lg-2 col-md-12 mx-2 col-sm-12 py-2 px-2 font-weight-bold my-2">Search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- End Intro Section -->
+
+<!--       CATEGOREIS SELECT SECTION     -->
+<section id="categories" class="container pt-5 mt-4 mb-5">
+  <!--            CATEGORIES head title-->
+  <div class="sectionTitle  d-flex justify-content-between align-items-baseline">
+      <div class="mainTitleContents mb-3">
+          <h2 class="titleText h2 text-blue">Explore Popular Categories</h2>
+          <p class="subTitleText mb-2">Explore must popular business categorie on the Island.</p>
+      </div>
+      <div class="filterOption">
+          {% comment %} <a href="#" class="btn btn-sm">All Categories</a> {% endcomment %}
+      </div>                
+  </div>
+  <!--            MAIN CATEGORIES -->
+  <div class="grid-contents">
+      <!--          SCHOOL CATEGORY-->
+      {% for category in categories %}
+      {% if category.id == 1 %} 
+      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
+      background-size:cover;">
+          <h2 class="h2">{{category.name}} </h2>
+          <p class="m-0 text-light">{{ category_count }}</p>
+      </a>
+      {% endif %}
+      {% endfor %}
+
+      {% for category in categories %}
+      {% if category.id == 2 %} 
+      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
+      background-size:cover;">
+          <h2 class="h2">{{category.name}} </h2>
+          <p class="m-0 text-light">{{category_count}}</p>
+      </a>
+      {% endif %}
+      {% endfor %}
+
+      {% for category in categories %}
+      {% if category.id == 3 %} 
+      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
+      background-size:cover;">
+          <h2 class="h2">{{category.name}} </h2>
+          <p class="m-0 text-light">{{count_cate}}</p>
+      </a>
+      {% endif %}
+      {% endfor %}
+
+      {% for category in categories %}
+      {% if category.id == 4 %} 
+      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
+      background-size:cover;">
+          <h2 class="h2">{{category.name}} </h2>
+          <p class="m-0 text-light">{{category_count}}</p>
+      </a>
+      {% endif %}
+      {% endfor %}
+
+      {% for category in categories %}
+      {% if category.id == 5 %} 
+      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
+      background-size:cover;">
+          <h2 class="h2">{{category.name}} </h2>
+          <p class="m-0 text-light">{{category_count}}</p>
+      </a>
+      {% endif %}
+      {% endfor %}
+
+      {% for category in categories %}
+      {% if category.id == 6 %} 
+      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
+      background-size:cover;">
+          <h2 class="h2">{{category.name}} </h2>
+          <p class="m-0 text-light">{{category_count}}</p>
+      </a>
+      {% endif %}
+      {% endfor %}
+  </div>
+</section>
+
+<!-- ======== most popular categories ========= -->
+{% comment %} <section class="main">
+  <div class="discover pb-1 m-0">
+    <h2>Explore Categories</h2>
+    <div class="container">
+      <div class="row justify-content-around m-0 p-0 pt-3">
+        {% for category in categories %}
+        {% if category %}
+        <div class="col-lg-3 col-md-6 py-2">
+          <a href="{% url 'listings' %}?category={{ category.name }}" class="card category">
+            <div class="d-flex justify-content-between align-items-start px-3 m-0 py-2">
+              <div class="category-name-icon p-0 m-0">
+                <span class="text-dark font-weight-bold"><img class="category-icon" src="{{ category.icon.url }}">
+                  {{category.name}}</span>
+              </div>
+                <div class="category-list-number text-muted font-weight-bold">{{count_cate}}</div>
+            </div>
+          </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <div class="col-lg-3 col-md-6 py-2">
+          <a href="{% url 'category' %}" class="card category" data-bs-toggle="collapse" href="#collapseExample"
+            role="button" aria-expanded="false" aria-controls="collapseExample">
+            <div class="d-flex justify-content-between = px-3 m-0 py-2">
+              <i class="font-weight-bold py-1 text-secondary">More Categories...</i>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+</section> <!-- ======== most popular categories end ======== --> {% endcomment %}
+
+
+        <!--       STRUCTURING THE POPULAR LISTINGS CONTENT-->
+        <section id="popularListings" class="container py-5 mb-5">
+          <!--            Popular listenings head title-->
+          <div class="sectionTitle  d-flex justify-content-between align-items-baseline">
+              <div class="mainTitleContents">
+                  <h2 class="titleText h2 text-blue">Latest Listings</h2>
+                  <p class="subTitleText mb-2">Explore businesses on the island.</p>
+              </div>
+              <div class="filterOption">
+                  <a href="{% url 'listings' %}" class="btn btn-sm">All Listings</a>
+              </div>
+          </div>
+          <!--           MAIN POPULAR LISTINGS ROW CONTENT-->
+          <div class="popularListingsRows row">
+              
+              {% if listings %}
+              {% for listing in listings %}
+              <div class="customCard p-2 m-0 col-lg-3 col-md-4 col-sm-6 mt-sm-3">
+                  <div class="card">
+                      <div class="card-header p-0">
+                          <div class="blank rounded" style="background-image: url('{{ listing.photo_main.url }}'); background-repeat: no-repeat;
+                          background-size:cover; width:100%; height: 15em; background-position:center-top" ;>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div class="content-details">
+                              <h3 class="m-0 mt-1 mb-2 cardTitle">{{ listing.name }}</h3>
+                              <p class="cardSubTitle">
+                                {%autoescape off%}
+                                  {{ listing.description|striptags|truncatechars:100 }}
+                                {%endautoescape%}</p>
+                              <a href="{% url 'listing' listing.id %}" class="btn btn-sm bg-dark text-light rounded-none cardBtn">Read More</a>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+              {% endfor %}
+              {% else %}
+              <div class="col-md-12">
+                <p class="text-dark">No listings Available</p>
+              </div>
+              {% endif %}
+
+              <div class="col-md-12 bottomFilterOption">
+                  <a href="{% url 'listings' %}" class="btn btn-sm">All Listings</a>
+              </div>
+
+          </div>
+
+      </section>
+
+      <!--        END OF POPULAR LISTINGS CONTENT STRUCTURE-->
+
+
+{% endblock %}
