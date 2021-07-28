@@ -8,7 +8,7 @@ from testimonies.models import Testimony
 from django.db.models import Count
 
 def index(request):
-    listings = Listing.objects.order_by('-posted_date').filter(is_published=True)[:6]
+    listings = Listing.objects.order_by('-posted_date').filter(is_published=True)[:8]
     categories = Category.objects.all()[:6]
     
     #counting listings in a category
