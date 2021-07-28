@@ -103,7 +103,7 @@
       {% endfor %}
 
       {% for category in categories %}
-      {% if category.id == 6 %} 
+      {% if category.id == 7 %} 
       <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
       background-size:cover;">
           <h2 class="h2">{{category.name}} </h2>
