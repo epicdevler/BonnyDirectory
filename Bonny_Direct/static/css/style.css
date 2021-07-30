@@ -348,24 +348,7 @@ select{
 .discover a{
   text-decoration: none;
 }
-.category {
-  background-color: #fff;
-  padding: 8px 0px 8px 0px;
-  box-shadow: 1px 1px 1px 1px rgba(165, 164, 164, 0.603);
-  border: none;
-  text-decoration: none;
-  color: #000;
-}
-.category:hover{
-  padding: 0.4rem;
-  transition: 0.3s ease-in;
 
-}
-
-.category-icon{
-  width: 30px;
-  height: 30px;
-}
 /*********************/
 /*    04. Header     */
 /*********************/

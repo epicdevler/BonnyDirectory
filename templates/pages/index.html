@@ -52,65 +52,16 @@
   <!--            MAIN CATEGORIES -->
   <div class="grid-contents">
       <!--          SCHOOL CATEGORY-->
+      {% if categories %}
       {% for category in categories %}
-      {% if category.id == 1 %} 
       <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
       background-size:cover;">
           <h2 class="h2">{{category.name}} </h2>
-          <p class="m-0 text-light">{{ category_count }}</p>
+          <p class="m-0 text-light">{{ category.cate_count }}</p>
       </a>
-      {% endif %}
-      {% endfor %}
 
-      {% for category in categories %}
-      {% if category.id == 2 %} 
-      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
-      background-size:cover;">
-          <h2 class="h2">{{category.name}} </h2>
-          <p class="m-0 text-light">{{category_count}}</p>
-      </a>
-      {% endif %}
       {% endfor %}
-
-      {% for category in categories %}
-      {% if category.id == 3 %} 
-      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
-      background-size:cover;">
-          <h2 class="h2">{{category.name}} </h2>
-          <p class="m-0 text-light">{{count_cate}}</p>
-      </a>
       {% endif %}
-      {% endfor %}
-
-      {% for category in categories %}
-      {% if category.id == 4 %} 
-      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
-      background-size:cover;">
-          <h2 class="h2">{{category.name}} </h2>
-          <p class="m-0 text-light">{{category_count}}</p>
-      </a>
-      {% endif %}
-      {% endfor %}
-
-      {% for category in categories %}
-      {% if category.id == 5 %} 
-      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
-      background-size:cover;">
-          <h2 class="h2">{{category.name}} </h2>
-          <p class="m-0 text-light">{{category_count}}</p>
-      </a>
-      {% endif %}
-      {% endfor %}
-
-      {% for category in categories %}
-      {% if category.id == 6 %} 
-      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
-      background-size:cover;">
-          <h2 class="h2">{{category.name}} </h2>
-          <p class="m-0 text-light">{{category_count}}</p>
-      </a>
-      {% endif %}
-      {% endfor %}
   </div>
 </section>
 

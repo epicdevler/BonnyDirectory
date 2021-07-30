@@ -87,27 +87,29 @@ background-size:cover;" class="d-flex align-items-center justify-content-center 
         </div>
         <hr>
         {% endif %}
+        {% if listing.closing_time or listing.opening_time %}
         <div class="col-12 d-flex align-items-center justify-content-between mt-2 p-2">
           <label>Business Hours:</label>
           <label>{{ listing.closing_time }} - {{ listing.opening_time }}</label>
         </div>
         <hr>
+        {% endif %}
+        {% if listing.facebook or listing.instagram or listing.website  %}
         <div class="col-12 d-flex justify-content-between align-items-center p-2">
           <i class="p-0 text-dark">Contacts links:</i>
           <span class="p-0 text-dark">
             <div class="social-links mt-3">
-              {% if listing.facebook %}
+              
               <a href="http://{{ listing.facebook }}" class="facebook"><img src="{% static 'svg/facebook.svg' %}"></a>
-              {% endif %}
-              {% if listing.instagram %}
+              
               <a href="http://{{ listing.instagram }}" class="instagram"><img src="{% static 'svg/instagram.svg' %}"></a>
-              {% endif %}
-              {% if listing.website %}
+            
               <a href="http://{{ listing.website }}" class="website"><img src="{% static 'svg/www.svg' %}"></a>
-              {% endif %}
+        
+            </div>
           </span>
         </div>
-      </div>
+        {% endif %}
     </section>
   </section>
 </section>

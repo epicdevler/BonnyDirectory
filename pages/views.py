@@ -8,21 +8,16 @@ from testimonies.models import Testimony
 from django.db.models import Count
 
 def index(request):
-    listings = Listing.objects.order_by('-posted_date').filter(is_published=True)[:6]
-    categories = Category.objects.all()[:6]
+    listings = Listing.objects.order_by('-posted_date').filter(is_published=True)[:8]
     
-    #counting listings in a category
     
-    count_cate = Listing.objects.all()
-    print(count_cate)
+    categories = Category.objects.all().annotate(cate_count= Count('listing'))[:6]
     
     context = {
         'listings': listings,
         'categories': categories,
-        'count_cate': count_cate,
-        # 'pha_count': pha_count,
-        # 'fun_count': fun_count,
     }
+    
     return render(request, 'pages/index.html', context)
 
 def about(request):
