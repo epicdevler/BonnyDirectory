@@ -75,10 +75,10 @@
       <!-- ========= Button trigger modal ======= -->
       <div class="nav-item login-btn pl-lg-4 ml-lg-2">
         {% if user.is_authenticated %}
-        {% comment %} <ul class="navbar-nav">
-          <li class="nav-item">
+        <ul class="navbar-nav">
+          <li class="nav-item social-links>
             <a {% if 'dashboard' in request.path %} class="nav-link page-scroll active" {% else %}
-              class="nav-link page-scroll" {% endif %} href="{% url 'dashboard' %}"><small>Welcome {{ user.username}}</small> (Dashboard) </a>
+              class="nav-link page-scroll" {% endif %} href="{% url 'dashboard' %}"><img src="{% static 'svg/user.svg' %}"></a>
           </li>
           <li class="nav-item">
             <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link btn text-light ">Logout</a>
@@ -87,14 +87,14 @@
               <input type="hidden">
             </form>
           </li>
-        </ul> {% endcomment %}
+        </ul>
         {% else %}
         <div class="d-flex justify-content-space-around stack">
-          {% comment %} <a class="btn" href="{% url 'login' %}">Login</a>
+          <a class="btn" href="{% url 'login' %}">Login</a>
           
           <a href="{% url 'register' %}" class="btn mx-3">
             Register
-          </a> {% endcomment %}
+          </a>
 
         </div>
 

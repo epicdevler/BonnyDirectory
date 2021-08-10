@@ -3,6 +3,7 @@
 *{
   list-style: none!important;
   text-decoration: none!important;
+  font-family: Futura md bt;
 }
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
 
@@ -28,7 +29,7 @@ html {
 }
 body, p {
 	color: #787976; 
-	font: 400 1rem/1.5625rem sans-serif;
+	font: 400 1rem/1.5625rem;
 }
 
 .p-heading {
@@ -46,31 +47,31 @@ body, p {
 
 h1 {
 	color: #484a46;
-	font: 700 1.75rem/2.125rem Futura md bt;
+	font: 700 1.75rem/2.125rem ;
 }
 h2 {
 	color: #484a46;
-	font: 700 1.75rem/2.125rem sans-serif;
+	font: 700 1.75rem/2.125rem;
 }
 
 h3 {
 	color: #484a46;
-	font: 700 1.375rem/1.75rem sans-serif;
+	font: 700 1.375rem/1.75rem;
 }
 
 h4 {
 	color: #484a46;
-	font: 700 1.25rem/1.625rem sans-serif;
+	font: 700 1.25rem/1.625rem;
 }
 
 h5 {
 	color: #484a46;
-	font: 700 1.125rem/1.5rem sans-serif;
+	font: 700 1.125rem/1.5rem;
 }
 
 h6 {
 	color: #484a46;
-	font: 700 1rem/1.375rem sans-serif;
+	font: 700 1rem/1.375rem;
 }
 
 a {
@@ -86,76 +87,17 @@ a:hover {
 .login-btn .btn{
   background-color:#0D3D64!important;
 	color: #fff;
-	font: 700 0.9rem sans-serif;
+	font: 700 0.8rem;
 	border-radius: 0;
 }
 .login-btn .btn:hover{
   background-color:#fff!important;
 	color: #0D3D64;
-	font: 700 0.9rem sans-serif;
+	font: 700 0.8rem;
 	border-radius: 0;
 	border: 1px solid #0D3D64;
 	transition: 0.4s ease-in;
 }
-/*************************/
-/*     02. Preloader     */
-/*************************/
-/* .spinner-wrapper {
-	position: fixed;
-	z-index: 999999;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background: #0D3D64;
-}
-
-.spinner {
-	position: absolute;
-	top: 50%;
-	left: 50%; 
-	width: 3.75rem;
-	height: 1.25rem;
-	margin: -0.625rem 0 0 -1.875rem;
-	text-align: center;
-}
-
-.spinner > div {
-	display: inline-block;
-	width: 1rem;
-	height: 1rem;
-	border-radius: 100%;
-	background-color: #fff;
-	-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-	animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-}
-
-.spinner .bounce1 {
-	-webkit-animation-delay: -0.32s;
-	animation-delay: -0.32s;
-}
-
-.spinner .bounce2 {
-	-webkit-animation-delay: -0.16s;
-	animation-delay: -0.16s;
-}
-
-@-webkit-keyframes sk-bouncedelay {
-	0%, 80%, 100% { -webkit-transform: scale(0); }
-	40% { -webkit-transform: scale(1.0); }
-}
-
-@keyframes sk-bouncedelay {
-	0%, 80%, 100% { 
-		-webkit-transform: scale(0);
-		-ms-transform: scale(0);
-		transform: scale(0);
-	} 40% { 
-		-webkit-transform: scale(1.0);
-		-ms-transform: scale(1.0);
-		transform: scale(1.0);
-	}
-} */
 
 /**************************/
 /*     03. Navigation     */
@@ -210,6 +152,12 @@ a:hover {
 .sign-in-btn:hover{
   background-color: #0d304d!important;
   color: #fff!important;
+}
+
+#message{
+  background-color: rgb(224, 142, 142);
+  color: #fff;
+  font-size: 17px;
 }
 
 .display-table {
@@ -288,57 +236,159 @@ a:hover {
 /*********************/
   /*  login/registration     */
 /*********************/
-.auth-container{
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  background-color: #f5f5f5;
+
+.page-content {
+	width: 100%;
+	margin:  0 auto;
+	background-color: rgb(233, 233, 233);
+	display: flex;
+	display: -webkit-flex;
+	justify-content: center;
+	-o-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	align-items: center;
+	-o-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	-webkit-align-items: center;
 }
-.form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin: auto;
-}
-.form-signin .checkbox {
-  font-weight: 400;
-}
-.form-signin .checkbox input{
-  background-color: #0D3D64!important;
-}
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 12px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+.form-v6-content  {
+	background: #fff;
+	width: 500px;
+	border-radius: 8px;
+	-o-border-radius: 8px;
+	-ms-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	margin: 180px 0;
+	color: #fff;
+	font-weight: 700;
+	position: relative;
+	display: flex;
+	display: -webkit-flex;
 }
 
-.register-btn .btn{
-  color: #fff;
-  border: none;
+.form-v6-content .form-detail {
+    padding: 30px 40px;
+	position: relative;
+	width: 100%;
 }
-.signin-btn{
-  color: #fff;
-  padding: 0.70rem 0rem 0.80rem 0.70rem;
-  font-weight: 500;
+.form-v6-content .form-detail h2 {
+	color: #333;
+	font-size: 35px;
+	text-align: center;
+	position: relative;
+	padding: 6px 0 0;
+	margin-bottom: 47px;
 }
+.form-v6-content .form-row {
+    width: 100%;
+}
+.form-v6-content .form-detail .form-row-last {
+	text-align: center;
+}
+.form-v6-content .form-detail .input-text {
+	margin-bottom: 35px;
+}
+.form-v6-content .form-detail input {
+	width: 92%;
+    padding: 0px 15px 10px 15px;
+    border: 2px solid transparent;
+    border-bottom: 2px solid #e5e5e5;
+    appearance: unset;
+    -moz-appearance: unset;
+    -webkit-appearance: unset;
+    -o-appearance: unset;
+    -ms-appearance: unset;
+    outline: none;
+    -moz-outline: none;
+    -webkit-outline: none;
+    -o-outline: none;
+    -ms-outline: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+.form-v6-content .form-detail .form-row input:focus {
+	border-bottom: 2px solid #0D3D64;
+}
+.form-v6-content .form-detail .register {
+	background: #0D3D64;
+	border-radius: 6px;
+	-o-border-radius: 6px;
+	-ms-border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	width: 160px;
+	box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+	-o-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+	-ms-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+	-webkit-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+	border: none;
+	margin: 11px 0 50px 0px;
+	cursor: pointer;
+	color: #fff;
+	font-weight: 500;
+	font-size: 18px;
+}
+.form-v6-content .form-detail .register:hover {
+	background: #11558d;
+}
+.form-v6-content .form-detail .form-row-last input {
+	padding: 13px;
+}
+
+
+/* Responsive */
+@media screen and (max-width: 991px) {
+	.form-v6-content {
+		margin: 180px 20px;
+		flex-direction:  column;
+		-o-flex-direction:  column;
+		-ms-flex-direction:  column;
+		-moz-flex-direction:  column;
+		-webkit-flex-direction:  column;
+	}
+	.form-v6-content .form-left {
+		width: 100%;
+	}
+	.form-v6-content .form-left img {
+		width: 100%;
+		border-bottom-left-radius: 0px;
+	    border-top-right-radius: 8px;
+	}
+	.form-v6-content .form-detail {
+		padding: 30px 20px 30px 20px;
+	    width: auto;
+	}
+	.form-v6-content .form-detail .form-row input {
+		width: 96%;
+	}
+	.form-v6-content .form-detail .register {
+		margin-bottom: 80px;
+	}
+}
+@media screen and (max-width: 767px) {
+	.form-v6-content .form-detail .form-row input {
+		width: 94%;
+	}
+}
+
+@media screen and (max-width: 575px) {
+	.form-v6-content .form-detail .form-row input {
+	    width: 89%;
+	}
+}
+
+
+
+
+
+
+
 option{
   color: #000;
 }
@@ -586,11 +636,9 @@ select{
 .callToAction {
   display: flex;
   align-items: center;
-  min-height: 60vh;
+  min-height: 30vh;
   justify-content: center;
-  margin-top: 200px !important;
   padding: 50px 0px !important;
-  margin-bottom: 200px !important;
 }
 
 
@@ -660,7 +708,7 @@ select{
   }
 
   .callToAction p {
-      font-size: 14px;
+      font-size: 16px;
   }
 
   .callToAction a {
@@ -750,50 +798,123 @@ input.invalid {
   background-color: #ffdddd;
 }
 
-/* Hide all steps by default: */
-.tab {
+
+
+/* step by step form */
+.StepForm .first {
+  display: block !important;
+}
+
+.Form_container {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 100vh;
+  padding: 1rem 1.5rem;
+}
+
+
+.form__wrapper {
+  justify-self: center;
+  margin-top: -15rem;
+  padding: 3rem;
+  border-radius: 10px;
+  background-color: white;
+  height: max-content;
+  box-shadow: 0 20px 50px -40px #000;
+  margin-top: 2rem;
+}
+
+.form {
   display: none;
 }
 
-.step-btn {
-  background-color:#0D3D64;
-  color: #ffffff;
+.form__title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form__subtitle {
+  margin-bottom: 0.5rem;
+}
+
+.form__input {
+  margin-bottom: 1rem;
+}
+
+.form__input > input {
+  width: 100%;
+  outline: none;
+  border-color: #ccc;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 1.6rem;
+  font-size: 1rem;
+  font-family: "Mulish", sans-serif;
+
+  transition: border-color 0.1s ease-in-out;
+}
+
+.form__input > input:focus {
+  border-color: rgba(13, 61, 100, 0.64);
+}
+
+textarea{
+  width: 100%;
+  height: 200px!important;
+  resize: none;
+}
+
+.user_img{
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem;
+}
+
+.photo{
+  font-weight: bolder;
+}
+
+.button {
+  display: block;
+  width: 100%;
   border: none;
-  font-size: 18px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  background-color: transparent;
+  text-align: center;
+  font-size: 600;
+  font-weight: 600;
+  font-family: "Mulish", sans-serif;
+
+  transition: box-shadow 0.3s ease, trasnform 0.2s ease-in;
+}
+
+.button:hover {
+  box-shadow: 0 20px 30px -11px rgba(13, 61, 100, 0.31);
+  transform: scale(1.01);
   cursor: pointer;
-  font-weight: 500;
 }
 
-.step-btn:hover {
-  background-color:#0D3D64;
-  color: #fff;
-}
-
-#prevBtn {
-  background-color: #bbbbbb;
-}
-
-/* Make circles that indicate the steps of the form: */
-.step {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbbbbb;
-  border: none;  
-  border-radius: 50%;
-  display: inline-block;
-  opacity: 0.5;
-  padding: 10px;
-}
-
-.step.active {
-  opacity: 1;
-}
-
-/* Mark the steps that are finished and valid: */
-.step.finish {
+.button--filled {
+  color: white;
   background-color:#0D3D64;
 }
+
+.button--outlined {
+  border-color: #0D3D64;;
+  border-style: solid;
+  color: #0D3D64;
+}
+
+@media screen and (min-width: 500px) {
+  .StepForm {
+    width: 500px;
+  }
+}
+
+
+
 /* ////////////////////////////////////////////////////////////////////////
 /////////////////////////////  --DISCOVER STYLING-- ////////////////////////// */
 
@@ -945,7 +1066,7 @@ color: rgb(32, 31, 31);
 /* ////////////////////////////////////////////////////////////////////////
 /////////////////////////////  --FOOTER STYLING-- ////////////////////////// */
 #footer {
-  background-color: #072a47;
+  background-color: #0D3D64;
   padding: 0 0 30px 0;
   font-size: 15px;
 }

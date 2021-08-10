@@ -60,7 +60,7 @@
             </div>
             <div class="card-body">
               <div class="content-details">
-                <h3 class="m-0 p-0 cardTitle text-upper">{{ listing.name }}</h3>
+                <h3 class="m-0 p-0 cardTitle text-upper font-weight-bold">{{ listing.name }}</h3>
                 <p class="trunc">
                   {%autoescape off%}
                     {{ listing.description|striptags|truncatechars:100 }}

@@ -6,7 +6,7 @@
 <section id="other-banner-search" class="d-flex align-items-center justify-content-center m-0 pt-5 mt-5 my-5">
     <div class="container pt-2">
                     <div class="search mt-3 px-0 py-1 mx-0">
-          <form id="form" action="{% url 'search' %}" method="GET">
+          <form id="SearchForm" action="{% url 'search' %}" method="GET">
             {% csrf_token %}
             <div class="row d-flex justify-content-center container p-0 m-0 px-1">
               <input id="keywords" type="text" name="keywords"
@@ -23,7 +23,7 @@
                 {% endfor %}
               </datalist>
               <button type="submit"
-                class="btn search-bt col-lg-2 col-md-12 mx-2 col-sm-12 py-2 px-2 font-weight-bold my-2">Search</button>
+                class="btn search-bt col-lg-2 col-md-12 mx-2 col-sm-12 py-2 px-2 font-weight-bold my-2" onclick="searchBtn()">Search</button>
             </div>
           </form>
         </div>
@@ -45,7 +45,7 @@
                       </div>
                       <div class="card-body">
                           <div class="content-details">
-                              <h3 class="m-0 mt-1 mb-2 cardTitle">{{ listing.name }}</h3>
+                              <h3 class="m-0 mt-1 mb-2 cardTitle text-upper font-weight-bold">{{ listing.name }}</h3>
                               <p class="cardSubTitle">
                                 {%autoescape off%}
                                   {{ listing.description|striptags|truncatechars:100 }}

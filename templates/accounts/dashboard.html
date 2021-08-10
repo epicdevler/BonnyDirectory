@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block title %} | User Dashboard {% endblock %}
 {% block content %}
 
 <!-- ======= Banner content ======= -->
@@ -41,7 +41,7 @@
               </tr>
             </tbody>
           </table>
-          <div class="justify-content-center align-item-center text-center py-2 bg-secondary"><a class="text-light nav-link" href="{% url 'add_listing' %}"> Click Here to Add your business</a></div>
+          {% comment %} <a href="{% url 'add_listings' %}" class="btn btn-md btn-primary">Add your listings</a> {% endcomment %}
         </div>
       </div>
     </div>

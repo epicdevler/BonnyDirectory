@@ -11,7 +11,7 @@
         <h1 class="header-title text-light text-uppercase pb-3">Explore Bonny Island</h1>
         <h3 class="text-light">Find. Connect. Share</h3>
         <div class="search mt-3 px-0 py-1 mx-0">
-          <form id="form" action="{% url 'search' %}" method="GET">
+          <form id="SearchForm" action="{% url 'search' %}" method="GET">
             {% csrf_token %}
             <div class="row d-flex justify-content-center container p-0 m-0 px-1">
               <input id="keywords" type="text" name="keywords"
@@ -27,8 +27,7 @@
                 <option>{{ categories.name }}</option>
                 {% endfor %}
               </datalist>
-              <button type="submit"
-                class="btn search-bt col-lg-2 col-md-12 mx-2 col-sm-12 py-2 px-2 font-weight-bold my-2">Search</button>
+              <button type="submit" class="btn search-bt col-lg-2 col-md-12 mx-2 col-sm-12 py-2 px-2 font-weight-bold my-2" onclick="searchBtn()">Search</button>
             </div>
           </form>
         </div>
@@ -66,41 +65,6 @@
   </div>
 </section>
 
-<!-- ======== most popular categories ========= -->
-{% comment %} <section class="main">
-  <div class="discover pb-1 m-0">
-    <h2>Explore Categories</h2>
-    <div class="container">
-      <div class="row justify-content-around m-0 p-0 pt-3">
-        {% for category in categories %}
-        {% if category %}
-        <div class="col-lg-3 col-md-6 py-2">
-          <a href="{% url 'listings' %}?category={{ category.name }}" class="card category">
-            <div class="d-flex justify-content-between align-items-start px-3 m-0 py-2">
-              <div class="category-name-icon p-0 m-0">
-                <span class="text-dark font-weight-bold"><img class="category-icon" src="{{ category.icon.url }}">
-                  {{category.name}}</span>
-              </div>
-                <div class="category-list-number text-muted font-weight-bold">{{count_cate}}</div>
-            </div>
-          </a>
-        </div>
-        {% endif %}
-        {% endfor %}
-        <div class="col-lg-3 col-md-6 py-2">
-          <a href="{% url 'category' %}" class="card category" data-bs-toggle="collapse" href="#collapseExample"
-            role="button" aria-expanded="false" aria-controls="collapseExample">
-            <div class="d-flex justify-content-between = px-3 m-0 py-2">
-              <i class="font-weight-bold py-1 text-secondary">More Categories...</i>
-            </div>
-          </a>
-        </div>
-
-      </div>
-    </div>
-</section> <!-- ======== most popular categories end ======== --> {% endcomment %}
-
-
         <!--       STRUCTURING THE POPULAR LISTINGS CONTENT-->
         <section id="popularListings" class="container py-5 mb-5">
           <!--            Popular listenings head title-->
@@ -127,7 +91,7 @@
                       </div>
                       <div class="card-body">
                           <div class="content-details">
-                              <h3 class="m-0 mt-1 mb-2 cardTitle">{{ listing.name }}</h3>
+                              <h3 class="m-0 mt-1 mb-2 cardTitle text-upper font-weight-bold">{{ listing.name }}</h3>
                               <p class="cardSubTitle">
                                 {%autoescape off%}
                                   {{ listing.description|striptags|truncatechars:100 }}
@@ -154,6 +118,16 @@
       </section>
 
       <!--        END OF POPULAR LISTINGS CONTENT STRUCTURE-->
+
+              <!--    CONTENT STRUCTURE FOR CALL TO ACTION-->
+        {% comment %} <section class="jumbotron callToAction bg-blue">
+            <div class="container content text-center">
+                <h1 class="h1 titleText text-light pb-2">Let people know you Exist!</h1>
+                <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus omnis nam quae voluptas id, praesentium totam est nulla similique adipisci cum aut tenetur minima, ullam eum, laudantium quidem! Beatae, libero.</p>
+                <a href="#" class="btn btn-md bg-orange border-none text-light">Register Now</a>
+            </div>
+
+        </section> {% endcomment %}
 
 
 {% endblock %}
