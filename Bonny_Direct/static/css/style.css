@@ -262,7 +262,7 @@ a:hover {
 	-ms-border-radius: 8px;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
-	margin: 180px 0;
+	margin: 180px 0px 85px 0px;
 	color: #fff;
 	font-weight: 700;
 	position: relative;
@@ -345,7 +345,7 @@ a:hover {
 /* Responsive */
 @media screen and (max-width: 991px) {
 	.form-v6-content {
-		margin: 180px 20px;
+		margin: 150px 20px 85px 20px;
 		flex-direction:  column;
 		-o-flex-direction:  column;
 		-ms-flex-direction:  column;
@@ -361,7 +361,7 @@ a:hover {
 		width: 96%;
 	}
 	.form-v6-content .form-detail .register {
-		margin-bottom: 80px;
+		margin-bottom: 5px;
 	}
 }
 @media screen and (max-width: 767px) {
