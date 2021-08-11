@@ -271,7 +271,7 @@ a:hover {
 }
 
 .form-v6-content .form-detail {
-    padding: 30px 40px;
+  padding: 30px 40px;
 	position: relative;
 	width: 100%;
 }
@@ -293,7 +293,7 @@ a:hover {
 	margin-bottom: 35px;
 }
 .form-v6-content .form-detail input {
-	width: 92%;
+	width: 100%;
     padding: 0px 15px 10px 15px;
     border: 2px solid transparent;
     border-bottom: 2px solid #e5e5e5;
@@ -352,14 +352,7 @@ a:hover {
 		-moz-flex-direction:  column;
 		-webkit-flex-direction:  column;
 	}
-	.form-v6-content .form-left {
-		width: 100%;
-	}
-	.form-v6-content .form-left img {
-		width: 100%;
-		border-bottom-left-radius: 0px;
-	    border-top-right-radius: 8px;
-	}
+
 	.form-v6-content .form-detail {
 		padding: 30px 20px 30px 20px;
 	    width: auto;
@@ -373,18 +366,15 @@ a:hover {
 }
 @media screen and (max-width: 767px) {
 	.form-v6-content .form-detail .form-row input {
-		width: 94%;
+		width: 100%;
 	}
 }
 
 @media screen and (max-width: 575px) {
 	.form-v6-content .form-detail .form-row input {
-	    width: 89%;
+	    width: 100%;
 	}
 }
-
-
-
 
 
 

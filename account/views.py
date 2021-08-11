@@ -14,19 +14,19 @@ from django.core.mail import EmailMessage
 def Login(request):
     try:
         if request.method == 'POST':
-            email = request.POST.get('email')
+            username = request.POST.get('username')
             password = request.POST.get('password')
             
-            if not email or not password:
-                messages.error(request, 'Both email and Password are required.')
+            if not username or not password:
+                messages.error(request, 'Both Username and Password are required.')
                 return redirect('login')
-            user_obj = User.objects.filter(email=email).first()
+            user_obj = User.objects.filter(username=username).first()
             if user_obj is None:
                 messages.error(request, 'User not found.')
                 return redirect('login')
         
         
-            user = authenticate(email = email , password = password)
+            user = authenticate(username = username , password = password)
             
             if user is None:
                 messages.error(request, 'Wrong password.')
@@ -73,7 +73,7 @@ def Register(request):
                         
                     profile_obj = Profile.objects.create(user = user_obj)
                     profile_obj.save()
-                    messages.success(request, 'Registration successful.')
+
                     return redirect('login')
                     
             
@@ -92,7 +92,6 @@ def Register(request):
 def Logout(request):
     if request.method == 'POST':
         auth.logout(request)
-        messages.success(request, 'You are now logged out.')
         return redirect('index')
 
 

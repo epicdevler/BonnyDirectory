@@ -76,16 +76,20 @@
       <div class="nav-item login-btn pl-lg-4 ml-lg-2">
         {% if user.is_authenticated %}
         <ul class="navbar-nav">
-          <li class="nav-item social-links>
-            <a {% if 'dashboard' in request.path %} class="nav-link page-scroll active" {% else %}
-              class="nav-link page-scroll" {% endif %} href="{% url 'dashboard' %}"><img src="{% static 'svg/user.svg' %}"></a>
-          </li>
-          <li class="nav-item">
-            <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link btn text-light ">Logout</a>
+          <li class="nav-item social-links">
+          <div class=" dropdown">
+            <a type="button" {% if 'dashboard' in request.path %} class="nav-link page-scroll active dropdown-toggle"  {% else %} class="nav-link page-scroll" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20" {% endif %}>
+              <img class="img-fluid" src="{% static 'svg/user.svg' %}">
+            </a>
+               <div class="dropdown-menu drop" aria-labelledby="dropdownMenuOffset">
+                <a class="dropdown-item"  href="{% url 'dashboard' %}">Dashboard</a>
+                <a class="dropdown-item" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
             <form action="{% url 'logout' %}" method="POST" id="logout">
               {% csrf_token %}
               <input type="hidden">
             </form>
+              </div>
+              </div>
           </li>
         </ul>
         {% else %}
