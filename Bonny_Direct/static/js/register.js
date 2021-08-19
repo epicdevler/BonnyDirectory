@@ -8,11 +8,11 @@ const showPasswordToggle = document.querySelector(".showPasswordToggle");
 const submitBtn = document.querySelector(".submit-btn");
 
 const handleToggleInput = (e) => {
-  if (showPasswordToggle.textContent === "SHOW") {
-    showPasswordToggle.textContent = "HIDE";
+  if (showPasswordToggle.innerHTML === "SHOW") {
+    showPasswordToggle.innerHTML = "HIDE";
     passwordField.setAttribute("type", "text");
   } else {
-    showPasswordToggle.textContent = "SHOW";
+    showPasswordToggle.innerHTML = "SHOW";
     passwordField.setAttribute("type", "password");
   };
 };

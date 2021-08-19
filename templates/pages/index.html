@@ -120,14 +120,24 @@
       <!--        END OF POPULAR LISTINGS CONTENT STRUCTURE-->
 
               <!--    CONTENT STRUCTURE FOR CALL TO ACTION-->
-        <section class="jumbotron callToAction bg-blue">
+
+              {% if user.is_authenticated %}
+        <section class="jumbotron callToAction bg-blue d-none">
             <div class="container content text-center">
                 <h1 class="h1 titleText text-light pb-2">Let people know you Exist!</h1>
                 <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus omnis nam quae voluptas id, praesentium totam est nulla similique adipisci cum aut tenetur minima, ullam eum, laudantium quidem! Beatae, libero.</p>
-                <a href="#" class="btn btn-md bg-orange border-none text-light">Register Now</a>
+                <a href="{% url 'register' %}" class="btn btn-md bg-orange border-none text-light">Register Now</a>
             </div>
-
         </section>
+        {% else %}
+          <section class="jumbotron callToAction bg-blue">
+            <div class="container content text-center">
+                <h1 class="h1 titleText text-light pb-2">Let people know you Exist!</h1>
+                <p class="text-light">Add your business for easy search and awareness</p>
+                <a href="{% url 'register' %}" class="btn btn-md bg-orange border-none text-light">Register Now</a>
+            </div>
+        </section>
+        {% endif %}
 
 
 {% endblock %}
