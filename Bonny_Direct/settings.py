@@ -137,13 +137,3 @@ try:
     from .local_settings import *
 except ImportError:
     pass
-
-
-#email configuration
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bonnydirect@gmail.com'
-EMAIL_HOST_PASSWORD = 'uyhqcxnvokagvfue'
-EMAIL_PORT = 587
