@@ -10,14 +10,7 @@
       <form action="{% url 'login' %}" method="POST" class="form-detail">
         {% csrf_token %}
         <h2>Login</h2>
-        {% if messages %}
-        {% for message in messages %}
-        <div id="message" class="alert-{{ message.tags }} alert-dismissible fade show text-center my-3 py-2"
-          role="alert">
-          <small>{{ message }}</small>
-        </div>
-        {% endfor%}
-        {% endif%}
+        {% include 'partials/_messages.html' %}
         <div class="form-row">
           <input type="text" name="username" id="your-email" class="input-text" placeholder="Username" required autofocus>
         </div>
@@ -25,7 +18,7 @@
           <input type="password" name="password" id="password" class="input-text" placeholder="Password" required>
         </div>
         <div class="form-row d-flex justify-content-center mb-3">
-          <a href="{% url 'forget_password'%}" class="text-center">Forgot password? </a>
+          <a href="" class="text-center">Forgot password? </a>
         </div>
         <div class="form-row-last">
           <input type="submit" name="register" class="register" value="Login">
@@ -34,4 +27,6 @@
     </div>
   </div>
 </div>
+
+  <script src="{% static 'js/register.js' %}"></script>
 {% endblock %}

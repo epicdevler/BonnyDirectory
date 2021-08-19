@@ -1,238 +1,163 @@
-from .models import Profile
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.views import View
+import json
+from django.http import JsonResponse
 from django.contrib.auth.models import User
-from django.contrib import messages, auth
-from listings.models import Listing
-from listings.models import Category
-from .forms import ListingForm
-from .helpers import send_forget_password_mail
+import json
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from validate_email import validate_email
+from django.contrib import messages
 from django.core.mail import EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
+from django.core.mail import send_mail
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.template.loader import render_to_string
+from .utils import account_activation_token
+from django.urls import reverse
+from django.contrib import auth
+
+# Create your views here.
 
 
-def Login(request):
-    try:
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            
-            if not username or not password:
-                messages.error(request, 'Both Username and Password are required.')
+class EmailValidationView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        email = data['email']
+        if not validate_email(email):
+            return JsonResponse({'email_error': 'Email is invalid'}, status=400)
+        if User.objects.filter(email=email).exists():
+            return JsonResponse({'email_error': 'sorry email in use,choose another one '}, status=409)
+        return JsonResponse({'email_valid': True})
+
+
+class UsernameValidationView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        username = data['username']
+        if not str(username).isalnum():
+            return JsonResponse({'username_error': 'username should only contain alphanumeric characters'}, status=400)
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({'username_error': 'sorry username in use,choose another one '}, status=409)
+        return JsonResponse({'username_valid': True})
+
+
+class RegistrationView(View):
+    def get(self, request):
+        return render(request, 'accounts/register.html')
+
+    def post(self, request):
+        # GET USER DATA
+        # VALIDATE
+        # create a user account
+
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+
+        context = {
+            'fieldValues': request.POST
+        }
+
+        if not User.objects.filter(username=username).exists():
+            if not User.objects.filter(email=email).exists():
+                if len(password) < 6:
+                    messages.error(request, 'Password too short')
+                    return render(request, 'accounts/register.html', context)
+
+                user = User.objects.create_user(username=username, email=email)
+                user.set_password(password)
+                user.is_active = False
+                user.save()
+                current_site = get_current_site(request)
+                email_body = {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                }
+
+                link = reverse('activate', kwargs={
+                               'uidb64': email_body['uid'], 'token': email_body['token']})
+
+                email_subject = 'Activate your account'
+
+                activate_url = 'http://'+current_site.domain+link
+
+                email = EmailMessage(
+                    email_subject,
+                    'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url,
+                    'noreply@bonnydirect.com',
+                    [email],
+                )
+                email.send(fail_silently=False)
+                messages.success(request, 'Account successfully created, please check your mail for activation')
+                return render(request, 'accounts/register.html')
+
+        return render(request, 'accounts/register.html')
+
+
+class VerificationView(View):
+    def get(self, request, uidb64, token):
+        try:
+            id = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=id)
+
+            if not account_activation_token.check_token(user, token):
+                return redirect('login'+'?message='+'User already activated')
+
+            if user.is_active:
                 return redirect('login')
-            user_obj = User.objects.filter(username=username).first()
-            if user_obj is None:
-                messages.error(request, 'User not found.')
-                return redirect('login')
-        
-        
-            user = authenticate(username = username , password = password)
-            
-            if user is None:
-                messages.error(request, 'Wrong password.')
-                return redirect('login')
-        
-            login(request , user)
-            return redirect('index')
+            user.is_active = True
+            user.save()
 
-                
-            
-            
-    except Exception as e:
-        print(e)
-    return render(request , 'accounts/login.html')
-
-
-
-def Register(request):
-    try:
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            c_password = request.POST.get('c_password')
-            
-            if password == c_password:
-                try:
-                    if User.objects.filter(username = username).first():
-                        messages.error(request, 'Username is taken.')
-                        return redirect('register')
-                      
-                    if User.objects.filter(email = email).first():
-                        messages.error(request, 'Email is taken.')
-                        return redirect('register')
-                    
-                    if len(password) < 6:
-                        message.error(request, 'password too short')
-                        return redirect('register')
-                
-                    
-                    user_obj = User(username=username, email=email, password=password)
-                    user_obj.set_password(password)
-                    user_obj.save()
-                        
-                    profile_obj = Profile.objects.create(user = user_obj)
-                    profile_obj.save()
-
-                    return redirect('login')
-                    
-            
-                except Exception as e:
-                    print(e)
-            else:
-                messages.error(request, 'password did not match.')
-                return redirect('register')
-       
-    except Exception as e:
-            print(e)
-
-    return render(request , 'accounts/register.html')
-
-
-def Logout(request):
-    if request.method == 'POST':
-        auth.logout(request)
-        return redirect('index')
-
-
-
-def ChangePassword(request , token):
-    context = {}
-    
-    
-    try:
-        profile_obj = Profile.objects.filter(forget_password_token = token).first()
-        context = {'user_id' : profile_obj.user.id}
-        
-        if request.method == 'POST':
-            new_password = request.POST.get('new_password')
-            confirm_password = request.POST.get('confirm_password')
-            user_id = request.POST.get('user_id')
-            
-            if user_id is  None:
-                messages.error(request, 'No user id found.')
-                return redirect(f'change-password/{token}/')
-                
-            
-            if  new_password != confirm_password:
-                messages.error(request, 'Password did not match.')
-                return redirect(f'change-password/{token}/')
-                         
-            
-            user_obj = User.objects.get(id = user_id)
-            user_obj.set_password(new_password)
-            user_obj.save()
-            messages.success(request, 'Password reset successful.')
+            messages.success(request, 'Account activated successfully')
             return redirect('login')
-            
-            
-            
-    except Exception as e:
-        print(e)
-    return render(request , 'accounts/change-password.html' , context)
 
+        except Exception as ex:
+            pass
 
-import uuid
-def ForgetPassword(request):
-    try:
-        if request.method == 'POST':
-            email = request.POST.get('email')
-            
-            if not User.objects.filter(email=email).first():
-                messages.error(request, 'Not user found with this email.')
-                return redirect('forget-password')
-            
-            user_obj = User.objects.get(email = email)
-            token = str(uuid.uuid4())
-            profile_obj= Profile.objects.get(user = user_obj)
-            profile_obj.forget_password_token = token
-            profile_obj.save()
-            send_forget_password_mail(user_obj.email , token)
-            messages.success(request, 'An email is sent.')
-            return redirect('forget-password')
-    
-    
-    except Exception as e:
-        print(e)
-    return render(request , 'accounts/forget-password.html')
-
-    
-def dashboard(request):
-    listings = Listing.objects.all()
-
-    context = {
-    'listings': listings,
-    }
-
-    if request.user.is_authenticated:
-        return render(request, 'accounts/dashboard.html', context)
-    else:
         return redirect('login')
 
 
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'accounts/login.html')
 
-# def add_listing(request):
-#     listings = Listing.objects.all()
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
 
-#     context = {}
-#     if request.method == "POST":
-#         form = ListingForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             name = form.cleaned_data.get("name")
-#             category = form.cleaned_data.get("category")
-#             email = form.cleaned_data.get("email")
-#             description = form.cleaned_data.get("description")
-#             facebook = form.cleaned_data.get("facebook")
-#             instagram = form.cleaned_data.get("instagram")
-#             website = form.cleaned_data.get("website")
-#             photo_main = form.cleaned_data.get("photo_main")
-#             photo_1 = form.cleaned_data.get("photo_1")
-#             photo_2 = form.cleaned_data.get("photo_2")
-#             photo_3 = form.cleaned_data.get("photo_3")
-#             photo_4 = form.cleaned_data.get("photo_4")
-#             location = form.cleaned_data.get("location")
-#             phone_number = form.cleaned_data.get("phone_number")
-#             opening_time = form.cleaned_data.get("opening_time")
-#             closing_time = form.cleaned_data.get("closing_time")
-#             user_id = form.cleaned_data.get('user_id')
+        if username and password:
+            user = auth.authenticate(username=username, password=password)
 
-#             # check if user have added listing before
+            if user:
+                if user.is_active:
+                    auth.login(request, user)
+                    messages.success(request, 'Welcome, ' +
+                                     user.username+' you are now logged in')
+                    return redirect('index')
+                messages.error(
+                    request, 'Account is not active,please check your email')
+                return render(request, 'accounts/login.html')
+            messages.error(
+                request, 'Invalid credentials,try again')
+            return render(request, 'accounts/login.html')
 
-#             # if request.user.is_authenticated:
-#             #     user_id = request.user.id
-#             #     has_added = Listing.objects.all().filter(user_id=user_id)
-#             #     if has_added:
-#             #         messages.error(request, 'Your already added a listing')
-#             #         return redirect('add_listing')
+        messages.error(
+            request, 'Please fill all fields')
+        return render(request, 'accounts/login.html')
 
-#             obj = Listing.objects.create(
-#                                 name = name,
-#                                 category =category,
-#                                 email = email,
-#                                 description = description,
-#                                 facebook = facebook,
-#                                 instagram = instagram,
-#                                 website = website,
-#                                 photo_main = photo_main,
-#                                 photo_1 = photo_1,
-#                                 photo_2 = photo_2,
-#                                 photo_3 = photo_3,
-#                                 photo_4 = photo_4,
-#                                 location = location,
-#                                 phone_number = phone_number,
-#                                 opening_time = opening_time,
-#                                 closing_time = closing_time,
-#                                 user_id = user_id
-#                              )
-#             obj.save()
-#             print(obj)
-#             messages.success(request, 'your listing has been successfully added, and would be under 24hours review')
-#     else:
-#         form = ListingForm()
-#     context = {
-#         'form': form,
-#         'listings': listings,
-#     }
-      
-#     return render(request, 'accounts/add_listing.html', context)
 
+class LogoutView(View):
+    def post(self, request):
+        auth.logout(request)
+        messages.success(request, 'You have been logged out')
+        return redirect('login')
+
+
+class dashboardView(View):
+    def get(self, request):
+        return render(request, 'accounts/dashboard.html')

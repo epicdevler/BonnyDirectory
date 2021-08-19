@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.contrib import messages
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -128,7 +129,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
+
 try:
     from .local_settings import *
 except ImportError:
     pass
+
+
+#email configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'bonnydirect@gmail.com'
+EMAIL_HOST_PASSWORD = 'uyhqcxnvokagvfue'
+EMAIL_PORT = 587

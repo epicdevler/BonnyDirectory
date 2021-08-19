@@ -1041,6 +1041,14 @@ color: rgb(32, 31, 31);
 /////////////////////// -- ANY OTHER STYLING -- ///////////////////////////
 //////////////////////////////////////////////////////////////////////// */
 
+.showPasswordToggle {
+  cursor: pointer;
+  transition: all;
+}
+
+.showPasswordToggle:hover {
+  transform: scale(1.2);
+}
 
 .text-bold{
   font-weight: bold;

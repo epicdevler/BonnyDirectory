@@ -12,33 +12,34 @@
       <form action="{% url 'register' %}" method="POST" class="form-detail">
         <h2>Register</h2>
         {% csrf_token %}
-        {% if messages %}
-        {% for message in messages %}
-        <div id="message" class="alert-{{ message.tags }} alert-dismissible fade show text-center my-3 py-2"
-          role="alert">
-          <small>{{ message }}</small>
-        </div>
-        {% endfor%}
-        {% endif%}
+
+        {% include 'partials/_messages.html' %}
+
         <div class="form-row">
-          <input type="text" name="username" id="full-name" class="input-text" placeholder="Username" autofocus required>
+          <input type="text" name="username" id="usernameField" class="input-text" placeholder="Username"
+            value="{{fieldValues.username}}" autofocus required>
         </div>
-        <div class="form-row">
-          <input type="email" name="email" id="your-email" class="input-text" placeholder="Email Address" required
-            pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+        <div class="invalid_feedback invalid-feedback" style="display:none">
         </div>
+        <p class="text-sm text-success usernameSuccessOutput"></p>
         <div class="form-row">
-          <input type="password" name="password" id="password" class="input-text" placeholder="Password" required>
+          <input type="email" name="email" id="emailField" class="input-text" placeholder="Email Address"
+            value="{{fieldValues.email}}" required>
+        </div>
+        <div class="emailFeedBackArea invalid-feedback" style="display:none">
         </div>
         <div class="form-row">
-          <input type="password" name="c_password" id="comfirm-password" class="input-text"
-            placeholder="Comfirm Password" required>
+          <input type="password" name="password" id="passwordField" class="input-text" placeholder="Password" required>
         </div>
-        <div class="form-row-last">
-          <input type="submit" name="register" class="register" value="Register">
+        <small class="float-right text-dark showPasswordToggle">SHOW</small>
+        <div class="form-row-last pt-4">
+          <input type="submit" name="register" class="register submit-btn" value="Register">
         </div>
       </form>
     </div>
   </div>
 </div>
+
+
+<script src="{% static 'js/register.js' %}"></script>
 {% endblock %}
