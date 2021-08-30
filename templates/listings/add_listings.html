@@ -17,113 +17,140 @@
 <br>
 
 <div class="container d-flex justify-content-center mb-5 pb-3">
-    <div class="form__wrapper">
-        <form action="{% url 'add_listings' %}" method="POST" autocomplete="off" class="StepForm" id="Forms">
-            {% csrf_token %}
-            {% if user.is_authenticated %}
-              <input type="hidden" name="user_id" value="{{ user.id }}">
-            {% else %}
-              <input type="hidden" name="user_id" value="0">
-            {% endif %}
-            <!-- Step One -->
-            <div class="form active first" id="AddForm">
-                <h1 class="form__title">Step 1/4</h1>
-                <div class="form__input">
-                    <input type="text" name="name" class="form-control" placeholder="Business Name" required>
-                </div>
-                <div class="form__input">
-                    <input type="text" name="category" class="form-control" placeholder="Category" list="category" required>
-                    <datalist id="category">
-                        <option>Catering Service</option>
-                    </datalist>
-                </div>
-                <div class="form__input">
-                    <input type="email" name="email" class="form-control" name="email" placeholder="Email" required>
-                </div>
+    <form action="{% url 'add_listings' %}" method="POST" enctype="multipart/form-data" id="list" class="shadow-lg p-3 mb-5 StepForm">
+        {% csrf_token %}
 
-                <div class="button__wrapper">
-                    <button id="next" class="button button--filled">Next</button>
-                </div>
-            </div>
-            <!-- Step Two -->
+        <!-- Circles which indicates the steps of the form: -->
+        <div class="container d-flex justify-content-center p-3 py-1">
+            <span class="step mx-3"></span>
+            <span class="step mx-3"></span>
+            <span class="step mx-3"></span>
+            <span class="step mx-3"></span>
+        </div>
 
-            <div class="form" id="AddForm">
-                <h1 class="form__title">Step 2/4</h1>
-                <div class="form__input">
-                    <textarea type="text" name="description" class="form-control" placeholder=" Description" required></textarea>
-                </div>
-                <div class="form__input">
-                    <input type="text" name="location" class="form-control" placeholder="Location" required>
-                </div>
-                <div class="form__input">
-                    <input type="number" name="phone_number" class="form-control" placeholder="Phone Number" required>
-                </div>
-                <div class="user_img d-block">
-                    <label for="img" class="photo">photo (logo):</label>
-                    <input type="file" name="photo_main" class="form-control" required>
-                </div>
 
-                <div class="button__wrapper">
-                    <button id="next" class="button button--filled">Next</button>
-                    <button id="back" class="button button--outlined">Back</button>
-                </div>
+        <!-- Step One -->
+        <section class="form tab">
+            <h1 class="form__title">Step 1/4</h1>
+
+
+            <div class="form__input">
+                <label for="businessName" class="form-label">Business Name</label>
+                {{ form.name }}
             </div>
 
-            <!-- Step Three -->
-
-            <div class="form" id="AddForm">
-                <h1 class="form__title">Step 3/4</h1>
-                <div class="form__input">
-                    <input type="text" name="facebook" class="form-control" placeholder="Facebook" />
-                </div>
-                <div class="form__input">
-                    <input type="text" name="instagram" class="form-control" placeholder="Instagram" />
-                </div>
-                <div class="form__input">
-                    <input type="text" name="website" class="form-control" placeholder="Website" />
-                </div>
-                <div class="form__input">
-                    <input type="time" name="opening_time" class="form-control" placeholder="Opening time" />
-                </div>
-                <div class="form__input">
-                    <input type="time" name="closing_time" class="form-control" placeholder="Closing time" />
-                </div>
-
-                <div class="button__wrapper">
-                    <button id="next" class="button button--filled">Next</button>
-                    <button id="back" class="button button--outlined">Back</button>
-                </div>
+            <div class="form__input">
+                <label for="businessEmail">Business Email</label>
+                {{ form.email }}
             </div>
 
-            <!-- Step Four -->
+            <div class="form__input">
+                <label for="businessCategory">Select Business category:</label>
+                {{ form.category }}
+            </div>
+        </section>
 
-            <div class="form" id="AddForm">
-                <h1 class="form__title">Step 4/4</h1>
-                <p class="text-dark">Optional fields:</p>
-                <div class="user_img d-block">
-                    <label for="img" class="photo">Sub Photo 1</label>
-                    <input type="file" name="photo_1" class="form-control">
+        <!-- Step Two -->
+        <section class="form tab ">
+            <h1 class="form__title">Step 2/4</h1>
+
+            <div class="form__input">
+                <label for="businessAddress">Business Address</label>
+                {{ form.location }}
+            </div>
+            <div class="form__input">
+                <label for="businessContact">Business Contact</label>
+                {{ form.phone_number }}
+            </div>
+            <div class="form__input">
+                <label for="businessContact">Business social media links (optional)</label>
+                {{ form.facebook }}
+            </div>
+            <div class="form__input">
+                {{ form.website }}
+            </div>
+            <div class="form__input">
+                {{ form.instagram }}
+            </div>
+        </section>
+
+
+        <!-- Step Three -->
+
+        <section class="form tab">
+            <h1 class="form__title">Step 3/4</h1>
+            <div class="row">
+                <div class="form__input col-lg-6 col-md-4 col-sm-12">
+                    <label for="businessOpeningHrs">Opening Hours</label>
+                    {{ form.opening_time }}
                 </div>
-                <div class="user_img d-block">
-                    <label for="img" class="photo">Sub Photo 2:</label>
-                    <input type="file" name="photo_2" class="form-control">
-                </div>
-                <div class="user_img d-block">
-                    <label for="img" class="photo">Sub Photo 3:</label>
-                    <input type="file" name="photo_3" class="form-control">
-                </div>
-                <div class="user_img d-block">
-                    <label for="img" class="photo">Sub Photo 4:</label>
-                    <input type="file" name="photo_4" class="form-control">
-                </div>
-                <div class="button__wrapper">
-                    <button type="submit" class="button button--filled">
-                        Submit
-                    </button>
-                    <button id="back" class="button button--outlined">Back</button>
+                <div class="form__input col-lg-6 col-md-4 col-sm-12">
+                    <label for="businessClosingHrs">Closing Hours</label>
+                    {{ form.closing_time }}
                 </div>
             </div>
-        </form>
-    </div>
+            <div class="form__input">
+                <label for="businessDescription">Business Description</label><br>
+                {{ form.description }}
+            </div>
+        </section>
+
+        <section class="form image-section tab">
+            <h1 class="form__title">Step 4/4</h1>
+            <div class="form__input">
+                <label for="businessDescription">Add Images for your business</label>
+            </div>
+
+            <div class="row">
+                <div class="user_img col-md-4">
+                    <div class="user_img_content">
+                        {{ form.photo_main }}
+                        <div class="placeholder">
+                            <img src="Vector.png" alt="Add image icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="user_img col-md-8">
+                    <div class="user_img_content">
+                        {{ form.photo_1 }}
+                        <div class="placeholder">
+                            <img src="Vector.png" alt="Add image icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="user_img col-md-4">
+                    <div class="user_img_content">
+                        {{ form.photo_2 }}
+                        <div class="placeholder">
+                            <img src="Vector.png" alt="Add image icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="user_img col-md-4">
+                    <div class="user_img_content">
+                        {{ form.photo_3 }}
+                        <div class="placeholder">
+                            <img src="Vector.png" alt="Add image icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="user_img col-md-4">
+                    <div class="user_img_content">
+                        {{ form.photo_4 }}
+                        <div class="placeholder">
+                            <img src="Vector.png" alt="Add image icon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button class="btn step-btn btn-lg px-4" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button class="btn step-btn btn-lg px-4" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
+        </div>
+    </form>
 </div>
 {% endblock %}

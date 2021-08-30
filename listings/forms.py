@@ -12,7 +12,7 @@ class ListingForm(forms.ModelForm):
             "name": forms.TextInput(attrs={'class': 'form-control'}),
             "category": forms.Select(attrs={'class': 'form-control'}),
             "email": forms.EmailInput(attrs={'class': 'form-control'}),
-            "description": forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'})),
+            "description": forms.Textarea(attrs={'class': 'w-100'}),
             "instagram": forms.TextInput(attrs={'class': 'form-control'}),
             "facebook": forms.TextInput(attrs={'class': 'form-control'}),
             "website": forms.TextInput(attrs={'class': 'form-control'}),

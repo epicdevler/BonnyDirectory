@@ -1,23 +1,22 @@
 from django.shortcuts import render, redirect
 from django.views import View
 import json
-from django.http import JsonResponse
 from django.contrib.auth.models import User
 import json
 from django.http import JsonResponse
-from django.contrib.auth.models import User
 from validate_email import validate_email
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from django.core.mail import send_mail
-from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.template.loader import render_to_string
 from .utils import account_activation_token
+from .helpers import send_forget_password_mail
 from django.urls import reverse
 from django.contrib import auth
+import uuid
 
 # Create your views here.
 
@@ -136,8 +135,6 @@ class LoginView(View):
             if user:
                 if user.is_active:
                     auth.login(request, user)
-                    messages.success(request, 'Welcome, ' +
-                                     user.username+' you are now logged in')
                     return redirect('index')
                 messages.error(
                     request, 'Account is not active,please check your email')
@@ -156,8 +153,73 @@ class LogoutView(View):
         auth.logout(request)
         messages.success(request, 'You have been logged out')
         return redirect('login')
-
+    
 
 class dashboardView(View):
     def get(self, request):
         return render(request, 'accounts/dashboard.html')
+
+class ForgotPasswordView(View):
+    def get(self, request):
+        return render(request, 'accounts/forget-password.html')
+    
+    def post(self, request):
+        try:
+            if request.method == 'POST':
+                username = request.POST.get('username')
+            
+                if not User.objects.filter(username=username).first():
+                    messages.error(request, 'Not user found with this username.')
+                    return redirect('forgotPassword')
+            
+                user_obj = User.objects.get(username = username)
+                token = str(uuid.uuid4())
+                profile_obj= Profile.objects.get(user = user_obj)
+                profile_obj.forget_password_token = token
+                profile_obj.save()
+                send_forget_password_mail(user_obj.email , token)
+                messages.success(request, 'An email is sent.')
+            return redirect('forgotPassword')
+                
+    
+    
+        except Exception as e:
+            print(e)
+        return render(request, 'accounts/forget-password.html')
+    
+class ChangePasswordView(View):
+    def get(self, request):
+        return render(request, 'accounts/change-password.html')
+    
+    def post(self, request):
+        context = {}
+        try:
+            profile_obj = Profile.objects.filter(forget_password_token = token).first()
+            context = {'user_id' : profile_obj.user.id}
+        
+            if request.method == 'POST':
+                new_password = request.POST.get('new_password')
+                confirm_password = request.POST.get('confirm_password')
+                user_id = request.POST.get('user_id')
+            
+                if user_id is  None:
+                    messages.error(request, 'No user id found.')
+                    return redirect(f'changePassword/{token}/')
+                
+            
+                if  new_password != confirm_password:
+                    messages.error(request, 'Password did not match.')
+                    return redirect(f'changePassword/{token}/')
+                         
+            
+                user_obj = User.objects.get(id = user_id)
+                user_obj.set_password(new_password)
+                user_obj.save()
+                messages.success(request, 'Password reset successful.')
+                return redirect('login')
+            
+            
+        
+        except Exception as e:
+            print(e)
+        return render(request, 'accounts/change-password.html', context)

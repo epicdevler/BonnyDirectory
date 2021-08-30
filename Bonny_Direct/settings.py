@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'our_team',
     'testimonies',
     'account',
+    'taggit',
 ]
 
 MIDDLEWARE = [

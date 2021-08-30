@@ -15,13 +15,14 @@
           <input type="text" name="username" id="your-email" class="input-text" placeholder="Username" required autofocus>
         </div>
         <div class="form-row">
-          <input type="password" name="password" id="password" class="input-text" placeholder="Password" required>
+          <input type="password" name="password" id="passwordField" class="input-text" placeholder="Password" required>
         </div>
+        <small class="float-right text-dark showPasswordToggle mb-4">SHOW</small>
         <div class="form-row d-flex justify-content-center mb-3">
-          <a href="" class="text-center">Forgot password? </a>
+          <a href="{% url 'forgotPassword' %}" class="text-center">Forgot password? </a>
         </div>
         <div class="form-row-last">
-          <input type="submit" name="register" class="register" value="Login">
+          <input type="submit" name="register" class="register submit-btn" value="Login">
         </div>
       </form>
     </div>

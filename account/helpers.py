@@ -4,7 +4,7 @@ from django.conf import settings
 
 def send_forget_password_mail(email , token ):
     subject = 'Your forget password link'
-    message = f'Hi , click on the link to reset your password https://www.bonnydirect.com/account/change-password/{token}/'
+    message = f'Hi , click on the link to reset your password https://www.bonnydirect.com/account/changePassword/{token}/'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)

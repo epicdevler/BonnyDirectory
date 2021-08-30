@@ -10,18 +10,18 @@
       <div class="container">
         <h1 class="header-title text-light text-uppercase pb-3">Explore Bonny Island</h1>
         <h3 class="text-light">Find. Connect. Share</h3>
-        <div class="search mt-3 px-0 py-1 mx-0">
+        {% comment %} <div class="search mt-3 px-0 py-1 mx-0">
           <form id="SearchForm" action="{% url 'search' %}" method="GET">
             {% csrf_token %}
             <div class="row d-flex justify-content-center container p-0 m-0 px-1">
               <input id="keywords" type="text" name="keywords"
                 class="form-control col-lg-3 col-md-12 col-sm-12 mx-2   py-4 my-2 border border-5"
-                placeholder=" Keyword">
+                placeholder=" Keyword" value="{{fieldValues.keywords}}">
               <input id="locations" type="text" name="location"
                 class="form-control col-lg-3 col-md-12 mx-2   py-4 col-sm-12 my-2 border border-5"
-                placeholder=" Location">
+                placeholder=" Location" value="{{fieldValues.location}}">
               <input id="categories" type="text" name="category" value="{{ query }}" list="category"
-                class="form-control col-lg-3 col-md-12 col-sm-12 mx-2  py-4 my-2 border border-5" placeholder=" Category (All)">
+                class="form-control col-lg-3 col-md-12 col-sm-12 mx-2  py-4 my-2 border border-5" placeholder=" Category (All)" value="{{fieldValues.category}}">
               <datalist id="category">
                 {% for categories in categories %}
                 <option>{{ categories.name }}</option>
@@ -30,7 +30,7 @@
               <button type="submit" class="btn search-bt col-lg-2 col-md-12 mx-2 col-sm-12 py-2 px-2 font-weight-bold my-2" onclick="searchBtn()">Search</button>
             </div>
           </form>
-        </div>
+        </div> {% endcomment %}
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@
           <p class="subTitleText mb-2">Explore must popular business categorie on the Island.</p>
       </div>
       <div class="filterOption">
-          {% comment %} <a href="#" class="btn btn-sm">All Categories</a> {% endcomment %}
+          <a href="{% url 'category' %}" class="btn btn-sm">All Categories</a>
       </div>                
   </div>
   <!--            MAIN CATEGORIES -->
