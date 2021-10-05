@@ -1072,10 +1072,12 @@ figure {
 @media screen and (max-width: 768px) {
   .form-container {
     width: calc(100% - 40px);
-    max-width: 100%; } }
+    max-width: 100%; } 
+  }
 @media screen and (max-width: 480px) {
   .signup-content {
-    padding: 50px 25px; } }
+    padding: 50px 25px; } 
+  }
 
 
 /* -------------------------------
@@ -1085,9 +1087,9 @@ figure {
 ----------------------------------*/
 
 .other-pages h3{
-  font-size: 3rem;
-  color: #fff;
-  font-weight: 600;
+  font-size: 3rem!important;
+  color: #fff!important;
+  font-weight: 600!important;
 }
 
 
