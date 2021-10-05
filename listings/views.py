@@ -3,7 +3,7 @@ from .models import Listing
 from .models import Category
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
-from .forms import ListingForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -88,67 +88,152 @@ def category(request):
   
     return render(request, 'listings/category.html', context)
 
+# @login_required(login_url='/accounts/login')
 def add_listings(request):
-    listings = Listing.objects.all()
-
-    context = {}
-    if request.method == "POST":
-        form = ListingForm(request.POST, request.FILES)
-        if form.is_valid():
-            name = form.cleaned_data.get("name")
-            category = form.cleaned_data.get("category")
-            email = form.cleaned_data.get("email")
-            description = form.cleaned_data.get("description")
-            facebook = form.cleaned_data.get("facebook")
-            instagram = form.cleaned_data.get("instagram")
-            website = form.cleaned_data.get("website")
-            photo_main = form.cleaned_data.get("photo_main")
-            photo_1 = form.cleaned_data.get("photo_1")
-            photo_2 = form.cleaned_data.get("photo_2")
-            photo_3 = form.cleaned_data.get("photo_3")
-            photo_4 = form.cleaned_data.get("photo_4")
-            location = form.cleaned_data.get("location")
-            phone_number = form.cleaned_data.get("phone_number")
-            opening_time = form.cleaned_data.get("opening_time")
-            closing_time = form.cleaned_data.get("closing_time")
-            user_id = form.cleaned_data.get('user_id')
-
-            #check if user have added listing before
-
-            if request.user.is_authenticated:
-                user_id = request.user.id
-                has_added = Listing.objects.all().filter(user_id=user_id)
-                if has_added:
-                    messages.error(request, 'Your already added a listing')
-                    return redirect('add_listing')
-
-            obj = Listing.objects.create(
-                                 name = name,
-                                 category =category,
-                                 email = email,
-                                 description = description,
-                                 facebook = facebook,
-                                 instagram = instagram,
-                                 website = website,
-                                 photo_main = photo_main,
-                                 photo_1 = photo_1,
-                                 photo_2 = photo_2,
-                                 photo_3 = photo_3,
-                                 photo_4 = photo_4,
-                                 location = location,
-                                 phone_number = phone_number,
-                                 opening_time = opening_time,
-                                 closing_time = closing_time,
-                                 user_id = user_id
-                                 )
-            obj.save()
-            print(obj)
-            messages.success(request, 'your listing has been successfully added, and would be under 24hours review')
-    else:
-        form = ListingForm()
+    categories = Category.objects.all()
+    
     context = {
-        'form': form,
-        'listings': listings,
+        'categories': categories,
     }
-      
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        description = request.POST['description']
+        category = request.POST['category']
+        location = request.POST['location']
+        phone_number = request.POST['phone_number']
+        facebook = request.POST['facebook']
+        instagram = request.POST['instagram']
+        website = request.POST['website']
+        photo_main = request.POST['photo_main']
+        photo_1 = request.POST['photo_1']
+        photo_2 = request.POST['photo_2']
+        photo_3 = request.POST['photo_3']
+        photo_4 = request.POST['photo_4']
+        opening_time = request.POST['opening_time']
+        closing_time = request.POST['closing_time']
+        user_id = request.POST['user_id']
+        
+        #verifying form / user details
+        
+        if not name:
+            messages.error(request, 'Business name is required.')
+            return redirect('add_listings')
+        
+        if not phone_number:
+            messages.error(request, 'Business number is required.')
+            return redirect('add_listings')
+        
+        if not email:
+            messages.error(request, 'Business email is required.')
+            return redirect('add_listings')
+        
+        if not category:
+            messages.error(request, 'Business category is required.')
+            return redirect('add_listings')
+        
+        if not location:
+            messages.error(request, 'Business location is required.')
+            return redirect('add_listings')
+        
+        if not photo_main:
+            messages.error(request, 'Business main image is required.')
+            return redirect('add_listings')
+        
+        if not description:
+            messages.error(request, 'Business description is required.')
+            return redirect('add_listings')
+        
+        add = Listing(name=name, email=email, category=category, description=description, location=location, phone_number=phone_number, 
+                      facebook=facebook, instagram=instagram, website=website, photo_main=photo_main, photo_1=photo_1, photo_2=photo_2, 
+                      photo_3=photo_3, photo_4=photo_4)
+        add.save()
+        messages.success(request, "Your Business has been added successfully, under a 24hour review.")
     return render(request, 'listings/add_listings.html', context)
+
+def edit_listing(request, id):
+    listings = Listing.objects.get(pk=id)
+    categories = Category.objects.all()
+    context = {
+        'listings': listings,
+        'values': listings,
+        'categories': categories
+    }
+    if request.method == 'GET':
+        return render(request, 'istings/edit_listing.html', context)
+        if request.method == 'POST':
+            name = request.POST['name']
+            email = request.POST['email']
+            description = request.POST['description']
+            category = request.POST['category']
+            location = request.POST['location']
+            phone_number = request.POST['phone_number']
+            facebook = request.POST['facebook']
+            instagram = request.POST['instagram']
+            website = request.POST['website']
+            photo_main = request.POST['photo_main']
+            photo_1 = request.POST['photo_1']
+            photo_2 = request.POST['photo_2']
+            photo_3 = request.POST['photo_3']
+            photo_4 = request.POST['photo_4']
+            opening_time = request.POST['opening_time']
+            closing_time = request.POST['closing_time']
+            user_id = request.POST['user_id']
+        
+        
+        
+            if not name:
+                messages.error(request, 'Business name is required.')
+                return redirect('add_listings')
+        
+            if not phone_number:
+                messages.error(request, 'Business number is required.')
+                return redirect('add_listings')
+        
+            if not email:
+                messages.error(request, 'Business email is required.')
+                return redirect('add_listings')
+        
+            if not category:
+                messages.error(request, 'Business category is required.')
+                return redirect('add_listings')
+        
+            if not location:
+                messages.error(request, 'Business location is required.')
+                return redirect('add_listings')
+        
+            if not photo_main:
+                messages.error(request, 'Business main image is required.')
+                return redirect('add_listings')
+        
+            if not description:
+                messages.error(request, 'Business description is required.')
+                return redirect('add_listings')
+
+            listings.user_id = request.user
+            listings.name = request.name
+            listings.email = request.email
+            listings.category = request.category
+            listings.location = request.location
+            listings.photo_main = request.photo_main
+            listings.photo_1 = request.photo_1
+            listings.photo_2 = request.photo_2
+            listings.photo_3 = request.photo_3
+            listings.photo_4 = request.photo_4
+            listings.description = request.description
+            listings.phone_number = request.phone_number
+            listings.closing_time = request.closing_time
+            listings.opening_time = request.opening_time
+            listings.website = request.website
+            listings.facebook = request.facebook
+
+            listings.save()
+            messages.success(request, 'Listing updated  successfully')
+
+        return redirect('dashboard')
+    
+def delete_listing(request, id):
+    listings = Listings.objects.get(pk=id)
+    listings.delete()
+    messages.success(request, 'Listing removed')
+    return redirect('dashboard')

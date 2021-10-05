@@ -2,20 +2,25 @@
 {% load static %}
 {% block title %} | {{listing.name}} {% endblock %}
 {% block content %}
-<!-- ======= Banner content ======= -->
 
-<section id="other-banner-content" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ listing.photo_main.url }}'); background-repeat: no-repeat;
-background-size:cover;" class="d-flex align-items-center justify-content-center m-0 py-3">
-  <div class="container">
-    <div class="content">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-xl-8 col-lg-8">
-          <h2 class="text-light">{{ listing.name }}</h2>
+
+<!-- ***** main-banner start ***** -->
+<div class="cover" style="background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('{{ listing.photo_main.url }}'); background-repeat: no-repeat;
+background-size:cover;">
+<div class="main-banner" style="background-image:none;">
+  <div class="container other-pages">
+    <div class="row">
+      <div class="col-lg-12 p-0 m-0">
+        <div class="top-text header-text">
+          <h3 class="p-0 mb-0 text-center">{{listing.name}}</h3>
         </div>
       </div>
     </div>
   </div>
-</section><!-- ======== Banner content end ======== -->
+</div>
+</div>
+<!-- ***** main-banner end ***** -->
+
 
 <section class="container pb-5 pt-2">
   <section class="d-flex pt-5 row">

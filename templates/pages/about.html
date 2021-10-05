@@ -2,18 +2,23 @@
 {% load static %}
 {% block title %} | About Us {% endblock %}
 {% block content %}
-<!-- ======= Banner content ======= -->
-<section id="other-banner-content" class="d-flex align-items-center justify-content-center m-0 py-3">
-    <div class="container">
-        <div class="content">
-            <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-8">
-                    <h1>About</h1>
-                </div>
-            </div>
+
+
+<!-- ***** main-banner start ***** -->
+<div class="main-banner">
+  <div class="container other-pages">
+    <div class="row">
+      <div class="col-lg-12 p-0 m-0">
+        <div class="top-text header-text">
+          <h3 class="p-0 mb-0 text-center">About Us</h3>
         </div>
+      </div>
     </div>
-</section> <!-- ======== Banner content end ======== -->
+  </div>
+</div>
+<!-- ***** main-banner end ***** -->
+
+
 
 <!-- ====== main content-->
 <div class="mt-5 pt-5 container">
@@ -26,9 +31,9 @@
         </div> -->
         <div class="content col-md-12 pt-5 about-bd-text">
             <h2 class="text-center font-weight-bold py-2">BonnyDirect </h2>
-            <p class="text-lead">BonnyDirect is centered on providing up-to-date information (location, contact details etc.) about businesses, services and places within Bonny Island and where to
-                find them.</p>
-                <p>Its a simple platform that seeks to showcase and connect businesses,
+            <p class="text-lead text-center">BonnyDirect is centered on providing up-to-date information (location, contact details etc.) about businesses, services and places within Bonny Island and where to
+                find them.
+                Its a simple platform that seeks to showcase and connect businesses,
                 schools, organizations, and other places in Grand Bonny Kingdom.</p>
         </div>
     </section>
@@ -73,7 +78,7 @@
                         of how the masses could get access to first-hand information about
                         businesses/organizations in Grand Bonny Kingdom.</p>
                 </div> -->
-                <div class="col-12 d-flex justify-content-center">
+                {% comment %} <div class="col-12 d-flex justify-content-center">
                     <div class="card-deck">
                         {% if our_team %}
                         {% for Team_Mate in our_team %}
@@ -86,12 +91,9 @@
                         </div>
                         {% endfor %}
                         {% else %}
-<!--                             <p class="text-dark">Not Available at the moment</p> -->
                         {% endif %}
-
-
                     </div>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     </section> 
@@ -118,7 +120,7 @@
 
                                 <!-- Slide -->
                                 <div class="swiper-slide">
-                                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                    {% comment %} <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                         <div class="carousel-inner">
                                             {% if testimonies %}
                                             {% for Testimony in testimonies %}
@@ -142,7 +144,7 @@
                                             {% endif %}
                                         </div>
 
-                                    </div>
+                                    </div> {% endcomment %}
                                 </div> <!-- end of swiper-slide -->
                                 <!-- end of slide -->
 

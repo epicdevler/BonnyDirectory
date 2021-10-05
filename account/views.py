@@ -17,6 +17,7 @@ from .helpers import send_forget_password_mail
 from django.urls import reverse
 from django.contrib import auth
 import uuid
+from listings.models import Listing
 
 # Create your views here.
 
@@ -28,7 +29,7 @@ class EmailValidationView(View):
         if not validate_email(email):
             return JsonResponse({'email_error': 'Email is invalid'}, status=400)
         if User.objects.filter(email=email).exists():
-            return JsonResponse({'email_error': 'sorry email in use,choose another one '}, status=409)
+            return JsonResponse({'email_error': 'Sorry email in use, choose another one '}, status=409)
         return JsonResponse({'email_valid': True})
 
 
@@ -37,9 +38,9 @@ class UsernameValidationView(View):
         data = json.loads(request.body)
         username = data['username']
         if not str(username).isalnum():
-            return JsonResponse({'username_error': 'username should only contain alphanumeric characters'}, status=400)
+            return JsonResponse({'username_error': 'Username should only contain alphanumeric characters'}, status=400)
         if User.objects.filter(username=username).exists():
-            return JsonResponse({'username_error': 'sorry username in use,choose another one '}, status=409)
+            return JsonResponse({'username_error': 'Sorry username in use, choose another one '}, status=409)
         return JsonResponse({'username_valid': True})
 
 
@@ -156,8 +157,17 @@ class LogoutView(View):
     
 
 class dashboardView(View):
+    listings = Listing.objects.filter(is_published=True)
+    context = {
+            'listings':listings
+        }
     def get(self, request):
-        return render(request, 'accounts/dashboard.html')
+        return render(request, 'accounts/dashboard.html', context)
+    
+    def post(self, request):
+        
+        return render(request, 'accounts/dashboard.html', context)
+
 
 class ForgotPasswordView(View):
     def get(self, request):

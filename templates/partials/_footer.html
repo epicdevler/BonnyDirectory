@@ -1,6 +1,6 @@
  {% load static %}
  <!-- ======= Footer ======= -->
-  <footer id="footer">
+  <footer class="footer">
 
     <!-- footer content container -->
     <div class="container pt-3">
@@ -9,7 +9,7 @@
         <div class="col-lg-4 col-md-6 col-sm-6">
           <div class="footer-info">
             <!-- Image Logo -->
-    <a class="footer-brand logo-image text-dark" href="{% url 'index' %}"><img src="{% static 'svg/image2vecto.svg' %}"
+    <a class="footer-brand logo-image text-dark" href="{% url 'index' %}"><img src="{% static 'assets/images/logo-wh.png' %}"
         class="img-fluid" alt="alternative"></a>
 <!--             <ul class="list-unstyled li-space-lg pt-3">
               <li><i class="font-weight-bold pb-3">Email: </i><a
@@ -19,10 +19,11 @@
         </div>
 
         <div class="useful-links  col-lg-4 col-md-6 col-sm-6 footer-links">
-          {% comment %} <h4>Useful Links</h4> {% endcomment %}
-          <ul class="py-0">
+          <h4>Navigation Links</h4>
+          <ul class="py-0 navigation">
             <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'listings' %}">Nearby</a></li>
+            {% comment %} <li><a href="{% url 'news' %}">News</a></li> {% endcomment %}
+            <li><a href="{% url 'listings' %}">Discover</a></li>
             <li></i> <a href="{% url 'about' %}">About us</a></li>
             {% comment %} <li></i> <a href="{% url 'contact' %}">Contact</a></li> {% endcomment %}
             <li></i> <a href="{% url 'terms_conditions' %}">Terms &amp; Conditions</a></li>
@@ -31,7 +32,9 @@
         <div class="useful-links  col-lg-4 col-md-6 col-sm-6 footer-links">
         <h4>Follow Us On:</h4>
           <div class="social-links mt-3">
-              <a href="https://www.facebook.com/bonnydirect" tab="_0" class="facebook"><img src="{% static 'svg/facebook.svg' %}"></a>
+              <a href="https://www.facebook.com/bonnydirect" target="_blank" class="facebook">
+              <i class="fa fa-facebook-square fa-2x"></i>
+              </a>
               {% comment %} <a href="#" class="google-plus"><img src="{% static 'svg/google-plus.svg' %}"></a> {% endcomment %}
             </div>
         </div>
@@ -61,7 +64,7 @@
 
     <!-- copyright section -->
     <div class="container">
-      <div class="copyright">
+      <div class="Footercopyright">
         Copyright &copy;
         <span class="year"></span>
       </div>

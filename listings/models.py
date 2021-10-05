@@ -5,18 +5,13 @@ from ckeditor.fields import RichTextField
 from PIL import Image
 import os
 
-class Category(models.Model):
-    name = models.CharField(max_length=150)
-    icon = models.ImageField(upload_to='photos_icons')
-    
 
-    def __str__ (self):
-        return self.name
+            
          
 
 class Listing(models.Model):
-    name = models.CharField(max_length=150)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=False, null=True)
+    name = models.CharField(max_length=150, default=True)
+    category = models.CharField(max_length=255)
     email = models.EmailField(max_length=150, blank=True)
     description = RichTextField(blank=True, null=True)
     photo_main = models.ImageField(upload_to = 'photos_main')
@@ -36,6 +31,24 @@ class Listing(models.Model):
     posted_date = models.DateTimeField(auto_now_add=True)
     user_id = models.IntegerField(blank=True)
     
+    
+    class Meta:
+        ordering: ['-date']
  
     def __str__ (self):
         return self.name
+
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=150)
+    icon = models.ImageField(upload_to='photos_icons')
+    
+    
+    class  Meta:
+        verbose_name_plural = 'Categories'
+    
+
+    def __str__ (self):
+        return self.name
+    

@@ -1,143 +1,324 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block title %} | Bonnydirect {% endblock %}
 {% block content %}
 
-<!-- ======= Intro Section ======= -->
-<div class="header">
-  <div class="header-content display-table">
-    <div class="table-cell">
-      <div class="container">
-        <h1 class="header-title text-light text-uppercase pb-3">Explore Bonny Island</h1>
-        <h3 class="text-light">Find. Connect. Share</h3>
-        {% comment %} <div class="search mt-3 px-0 py-1 mx-0">
-          <form id="SearchForm" action="{% url 'search' %}" method="GET">
-            {% csrf_token %}
-            <div class="row d-flex justify-content-center container p-0 m-0 px-1">
-              <input id="keywords" type="text" name="keywords"
-                class="form-control col-lg-3 col-md-12 col-sm-12 mx-2   py-4 my-2 border border-5"
-                placeholder=" Keyword" value="{{fieldValues.keywords}}">
-              <input id="locations" type="text" name="location"
-                class="form-control col-lg-3 col-md-12 mx-2   py-4 col-sm-12 my-2 border border-5"
-                placeholder=" Location" value="{{fieldValues.location}}">
-              <input id="categories" type="text" name="category" value="{{ query }}" list="category"
-                class="form-control col-lg-3 col-md-12 col-sm-12 mx-2  py-4 my-2 border border-5" placeholder=" Category (All)" value="{{fieldValues.category}}">
-              <datalist id="category">
-                {% for categories in categories %}
-                <option>{{ categories.name }}</option>
+<!-- ***** main-banner start ***** -->
+<div class="main-banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="top-text header-text">
+          <h1 class="p-0 mb-0">Discover</h1>
+          <h1 class="p-0 mb-2">Bonny Island</h1>
+          <p class="mb-5 pb-0">Find great places to stay, eat, shop, or visit from local experts.</p>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="row p-0 m-0 search-inputs justify-content-between">
+
+            <!-- category search input start -->
+            <div class="col-12 col-lg-5 col-md-12 search-what px-2 my-2 p-1">
+              <h6 class="search-form-text p-1 mb-0">What?</h6>
+              <input type="text" list="address" class="form-control py-2"
+                placeholder="Ex: food, service, barber, hotel">
+              <datalist id="address">
+                {% for category in categories %}
+                <option>{{ category.name }}</option>
                 {% endfor %}
               </datalist>
-              <button type="submit" class="btn search-bt col-lg-2 col-md-12 mx-2 col-sm-12 py-2 px-2 font-weight-bold my-2" onclick="searchBtn()">Search</button>
             </div>
-          </form>
-        </div> {% endcomment %}
+            <!-- category search end -->
+
+            <!-- location search input start -->
+            <div class="col-12 col-lg-4 col-md-12 search-where my-2 px-2 p-1">
+              <h6 class="search-form-text p-1 mb-0">Where?</h6>
+              <input type="text" list="address" class="form-control py-2" placeholder="Moore Jackson">
+              <!-- <datalist id="address">
+                <option>Moore Jackson</option>
+                <option>King Jaja</option>
+                <option>Akiama</option>
+                <option>New Road</option>
+              </datalist> -->
+            </div>
+            <!-- location search input end -->
+
+            <button
+              class="col-12 col-lg-2 col-md-12 search-form-btn my-2 btn text-light d-flex align-items-center px-2"><i
+                class="fa fa-search fa-1x px-2"></i> Search</button>
+
+          </div>
+        </form>
       </div>
+
+      <!-- hightlight category start -->
+      <div class="col-lg-12 container mb-0 pb-0  d-none d-md-block">
+        <div class="row">
+
+          <div class="col-lg-10 col-md-12">
+            <p class="text-light mt-4">Or browes highligts</p>
+            <ul class="categories flex-wrap d-flex">
+
+              {% for search_category in search_category %}
+              <li class="m-1 mb-2">
+                <a href="{% url 'listings' %}?search_category={{ search_category.name }}" class="cate-icon">
+                  <img src="{{ search_category.icon.url }}" alt="highligts category">
+                  <span class="cate-text">{{ search_category.name }}</span>
+
+                </a>
+              </li>
+              {% endfor %}
+
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <!-- hightlight category end -->
+
     </div>
   </div>
-</div><!-- End Intro Section -->
+</div>
+<!-- ***** main-banner end ***** -->
 
-<!--       CATEGOREIS SELECT SECTION     -->
-<section id="categories" class="container pt-5 mt-4 mb-5">
-  <!--            CATEGORIES head title-->
-  <div class="sectionTitle  d-flex justify-content-between align-items-baseline">
-      <div class="mainTitleContents mb-3">
-          <h2 class="titleText h2 text-blue">Explore Popular Categories</h2>
-          <p class="subTitleText mb-2">Explore must popular business categorie on the Island.</p>
-      </div>
-      <div class="filterOption">
-          <a href="{% url 'category' %}" class="btn btn-sm">All Categories</a>
-      </div>                
+
+
+
+
+<!-- ***** main-category start ***** -->
+
+<section class="main-category container pt-5 pb-5">
+
+  <!-- title section start -->
+  <div class="sectionTitle  d-flex justify-content-between align-items-baseline pt-5 pb-5">
+    <div class="main-sections-header">
+      <h1 class="titleText">Explore Categories</h1>
+      <p class="subTitleText mb-2">Check out different categories on the island</p>
+    </div>
+    <div class="all-cate">
+      <a href="{% url 'category' %}" class="main-sections-btn d-flex align-items-center">View All
+        <i class="fa fa-angle-right fa-2x px-2 text-muted"></i></a>
+    </div>
   </div>
-  <!--            MAIN CATEGORIES -->
-  <div class="grid-contents">
-      <!--          SCHOOL CATEGORY-->
+  <!-- title section end -->
+
+  <div class="container">
+    <div class="row justify-content-between m-0 p-0 pt-3">
+
+      <!-- individual category start -->
       {% if categories %}
       {% for category in categories %}
-      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
-      background-size:cover;">
-          <h2 class="h2">{{category.name}} </h2>
-          <p class="m-0 text-light">{{ category.cate_count }} listings</p>
-      </a>
+      <div class="col-lg-3 col-md-6 py-3">
+        <a href="{% url 'listings' %}?category = {{ category.name }}" class="card category py-2">
+          <div class="d-flex justify-content-between align-items-start px-3 m-0 py-2">
+            <div class="category-name-icon p-0 m-0">
+              <span class="text-dark font-weight-bold"><img class="category-icon" style="width: 4.2rem; height:2rem;"
+                  src="{{ category.icon.url }}"> {{category.name}}</span>
+            </div>
+            <div class="category-list-number text-muted font-weight-bold"></div>
+          </div>
+        </a>
+      </div>
 
       {% endfor %}
       {% endif %}
+      <!-- individual category end -->
 
+    </div>
+
+  </div>
+  <!-- mobile button -->
+  <div class="all-cate-mobile d-flex mt-3 justify-content-end">
+    <a href="{% url 'category' %}" class="main-sections-btn d-flex align-items-center">View All
+      <i class="fa fa-angle-right fa-2x px-2 text-muted"></i></a>
   </div>
 </section>
 
-        <!--       STRUCTURING THE POPULAR LISTINGS CONTENT-->
-        <section id="popularListings" class="container py-5 mb-5">
-          <!--            Popular listenings head title-->
-          <div class="sectionTitle  d-flex justify-content-between align-items-baseline">
-              <div class="mainTitleContents">
-                  <h2 class="titleText h2 text-blue">Latest Listings</h2>
-                  <p class="subTitleText mb-2">Explore businesses on the island.</p>
-              </div>
-              <div class="filterOption">
-                  <a href="{% url 'listings' %}" class="btn btn-sm">All Listings</a>
-              </div>
-          </div>
-          <!--           MAIN POPULAR LISTINGS ROW CONTENT-->
-          <div class="popularListingsRows row">
-              
-              {% if listings %}
-              {% for listing in listings %}
-              <div class="customCard p-2 m-0 col-lg-3 col-md-4 col-sm-6 mt-sm-3">
-                  <div class="card">
-                      <div class="card-header p-0">
-                          <div class="blank rounded" style="background-image: url('{{ listing.photo_main.url }}'); background-repeat: no-repeat;
+
+<!-- ***** main-category end ***** -->
+
+
+
+
+
+
+<!-- ***** listings start ***** -->
+
+<section class="listings container pt-5 pb-5">
+
+  <!-- title section start -->
+  <div class="sectionTitle  d-flex justify-content-between align-items-baseline pt-5 pb-5">
+    <div class="main-sections-header">
+      <h1 class="titleText">Latest Business</h1>
+      <p class="subTitleText mb-2">Check out different business on the island</p>
+    </div>
+    <div class="all-cate">
+      <a href="{% url 'category' %}" class="main-sections-btn d-flex align-items-center">View All
+        <i class="fa fa-angle-right fa-2x px-2 text-muted"></i></a>
+    </div>
+  </div>
+  <!-- title section end -->
+
+  <div class="container">
+    <div class="row justify-content-between m-0 p-0 pt-3">
+
+      <!-- individual listings start -->
+      {% for listing in listings %}
+      <div class="customCard p-2 m-0 col-lg-4 col-md-4 col-sm-6 mt-sm-3">
+        <div class="card">
+          <div class="card-header p-0">
+            <div class="blank rounded" style="background-image: url('{{ listing.photo_main.url }}'); background-repeat: no-repeat;
                           background-size:cover; width:100%; height: 15em; background-position:center-top" ;>
-                          </div>
-                      </div>
-                      <div class="card-body">
-                          <div class="content-details">
-                              <h3 class="m-0 mt-1 mb-2 cardTitle text-upper font-weight-bold">{{ listing.name }}</h3>
-                              <p class="cardSubTitle">
-                                {%autoescape off%}
-                                  {{ listing.description|striptags|truncatechars:100 }}
-                                {%endautoescape%}</p>
-                              <a href="{% url 'listing' listing.id %}" class="btn btn-sm bg-dark text-light rounded-none cardBtn">Read More</a>
-                          </div>
-                      </div>
-
-                  </div>
-              </div>
-              {% endfor %}
-              {% else %}
-              <div class="col-md-12">
-                <p class="text-dark">No listings Available</p>
-              </div>
-              {% endif %}
-
-              <div class="col-md-12 bottomFilterOption">
-                  <a href="{% url 'listings' %}" class="btn btn-sm">All Listings</a>
-              </div>
-
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="content-details">
+              <h3 class="m-0 mt-1 mb-2 cardTitle text-upper font-weight-bold">{{ listing.name }}</h3>
+              <p class="cardSubTitle">
+                {%autoescape off%}
+                {{ listing.description|striptags|truncatechars:100 }}
+                {%endautoescape%}</p>
+              <a href="{% url 'listing' listing.id %}" class="btn btn-sm bg-dark text-light rounded-none cardBtn mt-2">Read
+                More</a>
+            </div>
           </div>
 
-      </section>
+        </div>
+      </div>
+      {% endfor %}
+      <!-- individual listing end -->
 
-      <!--        END OF POPULAR LISTINGS CONTENT STRUCTURE-->
+    </div>
 
-              <!--    CONTENT STRUCTURE FOR CALL TO ACTION-->
+  </div>
+  <!-- mobile button -->
+  <div class="all-cate-mobile d-flex mt-3 justify-content-end">
+    <a href="{% url 'category' %}" class="main-sections-btn d-flex align-items-center">View All
+      <i class="fa fa-angle-right fa-2x px-2 text-muted"></i></a>
+  </div>
+</section>
 
-              {% if user.is_authenticated %}
-        <section class="jumbotron callToAction bg-blue d-none">
-            <div class="container content text-center">
-                <h1 class="h1 titleText text-light pb-2">Let people know you Exist!</h1>
-                <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus omnis nam quae voluptas id, praesentium totam est nulla similique adipisci cum aut tenetur minima, ullam eum, laudantium quidem! Beatae, libero.</p>
-                <a href="{% url 'register' %}" class="btn btn-md bg-orange border-none text-light">Register Now</a>
+
+<!-- ***** listings end ***** -->
+
+
+
+
+
+
+<!-- let people know you exist start  -->
+<section class="jumbotron you-exist d-flex justify-content-center align-items-center ">
+  <div class="container">
+    <h1 class="text-light pb-3">Let people know you Exist!</h1>
+    <p class="text-light">Add your business for easy search, adverts and connect to other businesses in and beyound the island.</p>
+
+    {% if user.is_authenticated %}
+
+    <a href="#" class="btn btn-lg text-light mt-4">Register Now</a>
+
+    {% else %}
+    <a href="" data-toggle="modal" data-target="#registerModal" class="btn btn-lg text-light mt-4">Register Now</a>
+    {% endif %}
+
+  </div>
+</section>
+<!-- let people know you exist end  -->
+
+
+
+
+
+
+
+<!--     Testimonies start   -->
+<section id="testimonials" class="container my-5 py-5">
+  <div class="sectionTitle text-center mb-2">
+    <h2 class="h2 titleText font-weight-bold">People talking about us</h2>
+  </div>
+
+  <!--            EDIT CONTENT TO MAKE SLIDE-->
+  <div class="testimonyContent row">
+
+    {% for testimonies in testimonies %}
+
+    <!--             TESTIMONY ONE-->
+    <div class="testimonyCard col-md-4 col-sm-6 pt-5">
+      <!--                 TESTIMONY WRITE UP CONTENT-->
+      <div class="testimonyWriteUp mb-4 shadow-sm p-2">
+        <p class="m-0">{{ testimonies.body }}</p>
+      </div>
+      <!--                  Contact Info-->
+      <div class="testimonyContactInfo">
+        <img class="testimonialProfile" src="{{ testimonies.photo.url }}" alt="">
+        <div class="details">
+          <h6 class="h6">{{ testimonies.name }}</h6>
+          <p class="m-0">{{ testimonies.position }}</p>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+  </div>
+</section>
+<!--     Testimonies end  -->
+
+
+
+
+
+
+
+<!-- News and Tip start  -->
+<!-- <section class="news-tip container pt-4 pb-5"> -->
+
+  <!-- title section start -->
+  <!-- <div class="sectionTitle  d-flex justify-content-between align-items-baseline pt-5 pb-5">
+    <div class="main-sections-header">
+      <h1 class="titleText">News &amp; Tips</h1>
+      <p class="subTitleText mb-2">Get first hand information about island</p>
+    </div>
+    <div class="all-cate">
+      <a href="#" class="main-sections-btn d-flex align-items-center ">View All <i
+          class="fa fa-angle-right fa-2x px-2 text-muted"></i></a>
+    </div>
+  </div> -->
+  <!-- title section end -->
+
+  <!-- <div class="container-fluid">
+    <div class="row justify-content-between m-0 p-0 pt-3">
+
+      {% for news in news %}
+      <div class="col-lg-4 col-md-6 py-2 px-0">
+        <a href="#" class="card news-card px-0">
+          <div class="card-img" alt="news image"
+            style="height: 15rem; background-image: url('{{ news.photo.url }}'); background-size: cover; background-position: center;">
+          </div>
+          <div class="card-body">
+            <h6 class="pt-3">{{ news.category }}</h6>
+            <h4 class="py-2">{{ news.title }}</h4>
+            <div class="d-flex justify-content-between align-items-ceneter">
+              <p class="date">{{ news.date }}</p>
+              <p href="#" class=""><i class="fa fa-angle-right fa-2x px-2 text-muted"></i></p>
             </div>
-        </section>
-        {% else %}
-          <section class="jumbotron callToAction bg-blue">
-            <div class="container content text-center">
-                <h1 class="h1 titleText text-light pb-2">Let people know you Exist!</h1>
-                <p class="text-light">Add your business for easy search and awareness</p>
-                <a href="{% url 'register' %}" class="btn btn-md bg-orange border-none text-light">Register Now</a>
-            </div>
-        </section>
-        {% endif %}
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+
+
+    </div>
+  </div> -->
+  <!-- mobile button -->
+  <!-- <div class="all-cate-mobile d-flex mt-3 justify-content-end">
+    <a href="{% url 'category' %}" class="main-sections-btn d-flex align-items-center">View All
+      <i class="fa fa-angle-right fa-2x px-2 text-muted"></i></a>
+  </div>
+  </div>
+</section> -->
+<!--     News and Tips end  -->
 
 
 {% endblock %}

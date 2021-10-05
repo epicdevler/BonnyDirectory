@@ -31,9 +31,9 @@ INSTALLED_APPS = [
     'listings',
     'ckeditor',
     'our_team',
-    'testimonies',
+    'testimony',
     'account',
-    'taggit',
+    'news_tips',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +131,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success'
 }
 
 try:
