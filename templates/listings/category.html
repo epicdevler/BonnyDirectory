@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
 
 {% block title %} | Listings {% endblock %}
+
 {% block content %}
 
 
@@ -20,33 +20,54 @@
 </div>
 <!-- ***** main-banner end ***** -->
 
-<!--       CATEGOREIS SELECT SECTION     -->
-<section id="categories" class="container pt-5 mt-4 mb-5">
-  <!--            CATEGORIES head title-->
-  <div class="sectionTitle  d-flex justify-content-between align-items-baseline">
-      <div class="mainTitleContents mb-3">
-          <h2 class="titleText h2 text-blue">Explore Popular Categories</h2>
-          <p class="subTitleText mb-2">Explore must popular business categorie on the Island.</p>
-      </div>
-      <div class="filterOption">
-          {% comment %} <a href="#" class="btn btn-sm">All Categories</a> {% endcomment %}
-      </div>                
+
+
+
+
+
+
+
+<!-- ***** main-category start ***** -->
+
+<section class="main-category container pt-5 pb-5">
+
+  <!-- title section start -->
+  <div class="sectionTitle  d-flex justify-content-between align-items-baseline pt-5 pb-5">
+    <div class="main-sections-header">
+      <h1 class="titleText">Explore Categories</h1>
+      <p class="subTitleText mb-2">Check out different categories on the island</p>
+    </div>
   </div>
-  <!--            MAIN CATEGORIES -->
-  <div class="grid-contents">
-      <!--          SCHOOL CATEGORY-->
+  <!-- title section end -->
+
+  <div class="container">
+    <div class="row justify-content-between m-0 p-0 pt-3">
+
+      <!-- individual category start -->
       {% if categories %}
       {% for category in categories %}
-      <a href="{% url 'listings' %}?category={{ category.name }}" id="shools" style="background-image: linear-gradient(180deg, rgba(6, 58, 100, 0.74), rgba(6, 58, 100, 0.74)), url('{{ category.icon.url }}'); background-repeat: no-repeat;
-      background-size:cover;">
-          <h2 class="h2">{{category.name}} </h2>
-          <p class="m-0 text-light">{{ category.cate_count }} listings</p>
-      </a>
+      <div class="col-lg-3 col-md-6 py-3">
+        <a href="{% url 'listings' %}?category = {{ category.name }}" class="card category py-2">
+          <div class="d-flex justify-content-between align-items-start px-3 m-0 py-2">
+            <div class="category-name-icon p-0 m-0">
+              <span class="text-dark font-weight-bold"><img class="category-icon" style="width: 4.2rem; height:2rem;"
+                  src="{{ category.icon.url }}"> {{category.name}}</span>
+            </div>
+            <div class="category-list-number text-muted font-weight-bold"></div>
+          </div>
+        </a>
+      </div>
 
       {% endfor %}
       {% endif %}
+      <!-- individual category end -->
+
+    </div>
 
   </div>
 </section>
+
+
+<!-- ***** main-category end ***** -->
 
 {% endblock %}

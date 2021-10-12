@@ -15,18 +15,18 @@
         </div>
       </div>
       <div class="col-lg-12">
-        <form method="POST">
+        <form method="GET" action="{% url 'search' %}">
           {% csrf_token %}
           <div class="row p-0 m-0 search-inputs justify-content-between">
 
             <!-- category search input start -->
             <div class="col-12 col-lg-5 col-md-12 search-what px-2 my-2 p-1">
               <h6 class="search-form-text p-1 mb-0">What?</h6>
-              <input type="text" list="address" class="form-control py-2"
+              <input type="text" name="category" list="address" value="{{ query }}" class="form-control py-2"
                 placeholder="Ex: food, service, barber, hotel">
               <datalist id="address">
                 {% for category in categories %}
-                <option>{{ category.name }}</option>
+                <option name="category">{{ category.name }}</option>
                 {% endfor %}
               </datalist>
             </div>
@@ -35,7 +35,7 @@
             <!-- location search input start -->
             <div class="col-12 col-lg-4 col-md-12 search-where my-2 px-2 p-1">
               <h6 class="search-form-text p-1 mb-0">Where?</h6>
-              <input type="text" list="address" class="form-control py-2" placeholder="Moore Jackson">
+              <input type="text" name="location" class="form-control py-2" placeholder="Moore Jackson">
               <!-- <datalist id="address">
                 <option>Moore Jackson</option>
                 <option>King Jaja</option>
@@ -155,14 +155,14 @@
       <p class="subTitleText mb-2">Check out different business on the island</p>
     </div>
     <div class="all-cate">
-      <a href="{% url 'category' %}" class="main-sections-btn d-flex align-items-center">View All
+      <a href="{% url 'listings' %}" class="main-sections-btn d-flex align-items-center">View All
         <i class="fa fa-angle-right fa-2x px-2 text-muted"></i></a>
     </div>
   </div>
   <!-- title section end -->
 
   <div class="container">
-    <div class="row justify-content-between m-0 p-0 pt-3">
+    <div class="row m-0 p-0 pt-3">
 
       <!-- individual listings start -->
       {% for listing in listings %}
@@ -233,6 +233,7 @@
 
 
 <!--     Testimonies start   -->
+ {% for testimonies in testimonies %}
 <section id="testimonials" class="container my-5 py-5">
   <div class="sectionTitle text-center mb-2">
     <h2 class="h2 titleText font-weight-bold">People talking about us</h2>
@@ -241,7 +242,7 @@
   <!--            EDIT CONTENT TO MAKE SLIDE-->
   <div class="testimonyContent row">
 
-    {% for testimonies in testimonies %}
+
 
     <!--             TESTIMONY ONE-->
     <div class="testimonyCard col-md-4 col-sm-6 pt-5">
@@ -259,10 +260,9 @@
       </div>
     </div>
 
-    {% endfor %}
-
   </div>
 </section>
+{% endfor %}
 <!--     Testimonies end  -->
 
 

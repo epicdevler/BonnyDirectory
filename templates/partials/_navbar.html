@@ -26,8 +26,16 @@
             {% comment %} AUTHENTICATION BUTTONS {% endcomment %}
             <div class="auths-btn d-flex pb-3 justify-content-center">
               {% if user.is_authenticated %}
-              <a href="#" class="btn log mx-3" data-toggle="modal" data-target="#loginModal">Login</a>
-              <a href="javascript:{document.getElementById('logout').submit()}" class="btn reg">Logout</a>
+              <a href="javascript:{document.getElementById('logout').submit()}" class="btn reg">logout
+
+                <form action="{% url 'logout' %}" method="POST" id="logout">
+                  {% csrf_token %}
+                  <input type="hidden">
+                </form>
+                
+              </a>
+
+
               {% else %}
               <a href="#" class="btn log mx-3" data-toggle="modal" data-target="#loginModal">Login</a>
               <a href="#" class="btn reg" data-toggle="modal" data-target="#registerModal">Register</a>
@@ -67,7 +75,8 @@
             {% csrf_token %}
             <h2 class="form-title text-center pb-4">Log in</h2>
             <div class="form-group">
-              <input type="text" class="form-input" name="username" id="name" placeholder="Your Name" required autofocus />
+              <input type="text" class="form-input" name="username" id="name" placeholder="Your Name" required
+                autofocus />
             </div>
 
             <div class="form-group">

@@ -150,10 +150,9 @@ class LoginView(View):
 
 
 class LogoutView(View):
-    def post(self, request):
-        auth.logout(request)
-        messages.success(request, 'You have been logged out')
-        return redirect('login')
+    def logout(request):
+      if request.method == 'POST':
+        return redirect('index')
     
 
 class dashboardView(View):

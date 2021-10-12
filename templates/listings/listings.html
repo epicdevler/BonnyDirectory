@@ -41,7 +41,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="{% url 'listings'%}">All</a>
                 {% for category in categories %}
-                <a class="dropdown-item" href="{% url 'listings' %}?category={{ category.name }}">{{ category.name }}</a>
+                <a class="dropdown-item" href="{% url 'search' %}?category={{ category.name }}">{{ category.name }}</a>
                 {% endfor %}
               </div>
             </div>

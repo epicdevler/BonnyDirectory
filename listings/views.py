@@ -6,6 +6,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
+
+
+
 def index(request):
     listings = Listing.objects.order_by('-posted_date').filter(is_published=True)
 
@@ -31,6 +34,9 @@ def index(request):
 
     return render(request, 'listings/listings.html', context)
 
+
+
+
 def listing(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
 
@@ -40,6 +46,9 @@ def listing(request, listing_id):
     }
   
     return render(request, 'listings/listing.html', context) 
+
+
+
 
 def search(request):
     queryset_list = Listing.objects.order_by('-posted_date').filter(is_published=True)
@@ -59,10 +68,12 @@ def search(request):
             queryset_list = queryset_list.filter(location__icontains=location)
     
     #search by category
-    if 'category' in category:
-        category = request.Get['category']
-    elif category:
-        queryset_list = Listing.objects.filter(category__name=category, is_published=True)
+      
+    if 'category' in request.GET:
+        category = request.GET['category']
+        if category:
+            queryset_list = Listing.objects.filter(category__iexact=category, is_published=True)
+
         
     context ={
         'listings': queryset_list,
@@ -70,6 +81,8 @@ def search(request):
     }
 
     return render(request, 'listings/search.html', context)
+
+
 
 def category(request):
     category = request.GET.get('category')
@@ -87,6 +100,8 @@ def category(request):
     }
   
     return render(request, 'listings/category.html', context)
+
+
 
 # @login_required(login_url='/accounts/login')
 def add_listings(request):

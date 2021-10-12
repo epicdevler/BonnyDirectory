@@ -1,67 +1,126 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %} | Search Bonnydirect {% endblock %}
 {% block content %}
 
-<!-- ======= Banner content ======= -->
-<section id="other-banner-search" class="d-flex align-items-center justify-content-center m-0 pt-5 mt-5 my-5">
-    <div class="container pt-2">
-                    <div class="search mt-3 px-0 py-1 mx-0">
-          <form id="SearchForm" action="{% url 'search' %}" method="GET">
-            {% csrf_token %}
-            <div class="row d-flex justify-content-center container p-0 m-0 px-1">
-              <input id="keywords" type="text" name="keywords"
-                class="form-control col-lg-3 col-md-12 col-sm-12 mx-2   py-4 my-2 border border-5"
-                placeholder=" Keyword" value="{{fieldValues.keywords}}">
-              <input id="locations" type="text" name="location"
-                class="form-control col-lg-3 col-md-12 mx-2   py-4 col-sm-12 my-2 border border-5"
-                placeholder=" Location" value="{{fieldValues.location}}">
-              <input id="categories" type="text" name="category" value="{{ query }}" list="category"
-                class="form-control col-lg-3 col-md-12 col-sm-12 mx-2  py-4 my-2 border border-5" placeholder=" Category (All)" value="{{fieldValues.category}}">
+<!-- ***** main-banner start ***** -->
+<div class="main-banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="top-text header-text">
+          <h1 class="p-0 mb-0">Search</h1>
+          <h1 class="p-0 mb-2">Bonny Island</h1>
+          <p class="mb-5 pb-0">Find great places to stay, eat, shop, or visit from local experts.</p>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <form method="GET" action="{% url 'search' %}">
+          {% csrf_token %}
+          <div class="row p-0 m-0 search-inputs justify-content-between">
+
+            <!-- category search input start -->
+            <div class="col-12 col-lg-5 col-md-12 search-what px-2 my-2 p-1">
+              <h6 class="search-form-text p-1 mb-0">What?</h6>
+              <input type="text" list="address" name="category" class="form-control py-2"
+                placeholder="Ex: food, service, barber, hotel">
               <datalist id="category">
-                {% for categories in categories %}
-                <option>{{ categories.name }}</option>
+                {% for category in categories %}
+                <option>{{ category.name }}</option>
                 {% endfor %}
               </datalist>
-              <button type="submit"
-                class="btn search-bt col-lg-2 col-md-12 mx-2 col-sm-12 py-2 px-2 font-weight-bold my-2" onclick="searchBtn()">Search</button>
             </div>
-          </form>
-        </div>
-                </div>
-</section> <!-- ======== Banner content end ======== -->
+            <!-- category search end -->
 
-<!--       STRUCTURING THE POPULAR LISTINGS CONTENT-->
-        <section id="popularListings" class="container mb-5 pt-5">
-           <!--           MAIN POPULAR LISTINGS ROW CONTENT-->
-  <div class="popularListingsRows row">
-    {% if listings %}
-              {% for listing in listings %}
-              <div class="customCard p-2 m-0 col-lg-3 col-md-4 col-sm-6 mt-sm-3">
-                  <div class="card">
-                      <div class="card-header p-0">
-                          <div class="blank rounded" style="background-image: url('{{ listing.photo_main.url }}'); background-repeat: no-repeat;
-                          background-size:cover; width:100%; height: 15em; background-position:center-top" ;>
-                          </div>
-                      </div>
-                      <div class="card-body">
-                          <div class="content-details">
-                              <h3 class="m-0 mt-1 mb-2 cardTitle text-upper font-weight-bold">{{ listing.name }}</h3>
-                              <p class="cardSubTitle">
-                                {%autoescape off%}
-                                  {{ listing.description|striptags|truncatechars:100 }}
-                                {%endautoescape%}</p>
-                              <a href="{% url 'listing' listing.id %}" class="btn btn-sm bg-dark text-light rounded-none cardBtn">Read More</a>
-                          </div>
-                      </div>
+            <!-- location search input start -->
+            <div class="col-12 col-lg-4 col-md-12 search-where my-2 px-2 p-1">
+              <h6 class="search-form-text p-1 mb-0">Where?</h6>
+              <input type="text" class="form-control py-2" name="location" placeholder="Moore Jackson">
+              <!-- <datalist id="address">
+                <option>Moore Jackson</option>
+                <option>King Jaja</option>
+                <option>Akiama</option>
+                <option>New Road</option>
+              </datalist> -->
+            </div>
+            <!-- location search input end -->
 
-                  </div>
-              </div>
+            <button
+              class="col-12 col-lg-2 col-md-12 search-form-btn my-2 btn text-light d-flex align-items-center px-2"><i
+                class="fa fa-search fa-1x px-2"></i> Search</button>
+
+          </div>
+        </form>
+      </div>
+
+      <!-- hightlight category start -->
+      <div class="col-lg-12 container mb-0 pb-0  d-none d-md-block">
+        <div class="row">
+
+          {% comment %} <div class="col-lg-10 col-md-12">
+            <p class="text-light mt-4">Or browes highligts</p>
+            <ul class="categories flex-wrap d-flex">
+
+              {% for search_category in search_category %}
+              <li class="m-1 mb-2">
+                <a href="{% url 'listings' %}?search_category={{ search_category.name }}" class="cate-icon">
+                  <img src="{{ search_category.icon.url }}" alt="highligts category">
+                  <span class="cate-text">{{ search_category.name }}</span>
+
+                </a>
+              </li>
               {% endfor %}
-              {% else %}
-              <div class="col-md-12">
-                <p class="text-dark">No listings Available</p>
-              </div>
-              {% endif %}
+
+            </ul>
+          </div> {% endcomment %}
+
+        </div>
+      </div>
+      <!-- hightlight category end -->
+
+    </div>
   </div>
-        </section>
+</div>
+<!-- ***** main-banner end ***** -->
+
+
+
+
+<div class="container pb-5 pt-5">
+  <div class="row m-0 p-0 pt-3">
+
+    <!-- individual listings start -->
+    {% if listings %}
+    {% for listing in listings %}
+    <div class="customCard p-2 m-0 col-lg-4 col-md-4 col-sm-6 mt-sm-3">
+      <div class="card">
+        <div class="card-header p-0">
+          <div class="blank rounded" style="background-image: url('{{ listing.photo_main.url }}'); background-repeat: no-repeat; background-size:cover; width:100%; height: 15em; background-position:center-top" ;>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="content-details">
+            <h3 class="m-0 mt-1 mb-2 cardTitle text-upper font-weight-bold">{{ listing.name }}</h3>
+            <p class="cardSubTitle">
+              {%autoescape off%}
+                {{ listing.description|striptags|truncatechars:100 }}
+              {%endautoescape%}</p>
+            <a href="{% url 'listing' listing.id %}" class="btn btn-sm bg-dark text-light rounded-none cardBtn mt-2">Read
+              More</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="col-md-12">
+      <p class="text-dark">No items march your search, please try again.</p>
+    </div>
+    {% endif %}
+    <!-- individual listing end -->
+
+  </div>
+
+</div>
 {% endblock %}
