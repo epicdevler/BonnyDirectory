@@ -18,14 +18,16 @@ def index(request):
     
 
     if category == None:
-        listings = Listing.objects.order_by('-posted_date').filter(is_published=True)
+        listings = Listing.objects.order_by('-posted_date').filter(is_published=True)[:6]
 
     else:
-        listings = Listing.objects.filter(category__name=category, is_published=True)
+        listings = Listing.objects.filter(category__iexact=category)
         
     paginator = Paginator(listings, 6)
     page = request.GET.get('page')
     paged_listings = paginator.get_page(page)
+    
+    
 
     context = {
     'listings': paged_listings,

@@ -41,7 +41,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="{% url 'listings'%}">All</a>
                 {% for category in categories %}
-                <a class="dropdown-item" href="{% url 'search' %}?category={{ category.name }}">{{ category.name }}</a>
+                <a class="dropdown-item" href="{% url 'listings' %}?category={{ category.name }}">{{ category.name }}</a>
                 {% endfor %}
               </div>
             </div>
@@ -55,29 +55,33 @@
     <div class="row justify-content-between m-0 p-0 pt-3">
 
       <!-- individual listings start -->
+      {% if listings %}
       {% for listing in listings %}
       <div class="customCard p-2 m-0 col-lg-4 col-md-4 col-sm-6 mt-sm-3">
         <div class="card">
           <div class="card-header p-0">
-            <div class="blank rounded" style="background-image: url('{{ listing.photo_main.url }}'); background-repeat: no-repeat;
-                          background-size:cover; width:100%; height: 15em; background-position:center-top" ;>
+            <div class="blank rounded" style="background-image: url('{{ listing.photo_main.url }}'); background-repeat: no-repeat; background-size:cover; width:100%; height: 15em; background-position:center-top" ;>
             </div>
           </div>
           <div class="card-body">
             <div class="content-details">
               <h3 class="m-0 mt-1 mb-2 cardTitle text-upper font-weight-bold">{{ listing.name }}</h3>
               <p class="cardSubTitle">
-                {%autoescape off%}
+                {% autoescape off %}
                 {{ listing.description|striptags|truncatechars:100 }}
-                {%endautoescape%}</p>
-              <a href="{% url 'listing' listing.id %}" class="btn btn-sm bg-dark text-light rounded-none cardBtn mt-2">Read
-                More</a>
+                {% endautoescape %}</p>
+              <a href="{% url 'listing' listing.id %}" class="btn btn-sm bg-dark text-light rounded-none cardBtn mt-2">Read More</a>
             </div>
           </div>
 
         </div>
       </div>
       {% endfor %}
+      {% else %}
+      <div class="col-10 justify-content-center text-center">
+        <p class="text-dark">No search match available</p>
+      </div>
+      {% endif %}
       <!-- individual listing end -->
 
     </div>
