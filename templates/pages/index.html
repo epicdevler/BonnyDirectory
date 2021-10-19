@@ -61,11 +61,11 @@
             <p class="text-light mt-4">Or browes highligts</p>
             <ul class="categories flex-wrap d-flex">
             
-              {% for category in categories %}
+              {% for search_category in search_category %}
               <li class="m-1 mb-2">
-                <a href="{% url 'listings' %}?category={{ category.name }}" class="cate-icon">
-                  <img src="{{ category.icon.url }}" alt="highligts category">
-                  <span class="cate-text">{{ category.name }}</span>
+                <a href="{% url 'listings' %}?search_category={{ search_category.name }}" class="cate-icon">
+                  <img src="{{ search_category.icon.url }}" alt="highligts category">
+                  <span class="cate-text">{{ search_category.name }}</span>
 
                 </a>
               </li>
