@@ -18,7 +18,7 @@ def index(request):
     
     # category = Category.objects.all().annotate(cate_count= Count('name'))[:6]
     category = Category.objects.all()[:9]
-    search_category = Category.objects.all()[:9]
+    search_category = Category.objects.all()[:5]
     
     
     
